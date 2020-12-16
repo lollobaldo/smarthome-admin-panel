@@ -8,7 +8,6 @@ import Content from './components/Content';
 
 import { GlobalStyle } from './styles/theme';
 import { state as defaultState } from './utils/state';
-import './App.css';
 
 const App = () => {
   const [state, setState] = useState(defaultState);

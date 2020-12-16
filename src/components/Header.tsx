@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import theme from 'styled-theming';
 
-import { Mode, mediaQuery, card } from '../styles/theme';
+import { Mode, mediaQuery, icon, card } from '../styles/theme';
 import { path2title } from '../utils/state';
 
 import iconLeft from '../res/icons/back.svg';
@@ -25,19 +25,23 @@ const StyledHeader = styled.header`
 
   & h1 {
     margin: auto auto auto 0;
+    font-weight: normal;
   }
 `;
 
 const BackLink = styled(Link)`
   display: inline-flex;
+  margin-right: 16px;
   & img {
-    width: 3em;
+    ${theme('mode', icon)}
+    width: 2.5em;
   }
 `;
 
 const NightModeButton = styled.button`
-  width: 3em;
+  width: 2.5em;
   padding: 0;
+  filter: drop-shadow(2px 4px 6px #000);
 `;
 
 const themeIcons = { light: iconDay, dark: iconNight };

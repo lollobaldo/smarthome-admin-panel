@@ -23,6 +23,7 @@ export const mediaQuery = (key: DeviceType) => (
 export const body = {
   light: css`
     background: #f5f5f5;
+    color: #000000;
     transition: all 0.14s ease-in;
   `,
   dark: css`
@@ -62,7 +63,17 @@ export const foreground = {
   `,
 };
 
+export const icon = {
+  dark: css`
+    filteR: brightness(0) invert(1) opacity(0.86);
+  `,
+};
+
 export const GlobalStyle = createGlobalStyle`
+  * {
+    font-family: 'Montserrat', sans-serif;
+  }
+
   body {
     margin: 0;
     ${theme('mode', body)}
@@ -73,6 +84,7 @@ export const GlobalStyle = createGlobalStyle`
     background: none;
     border: 0;
     box-shadow: none;
+    font: inherit;
   }
 `;
 
