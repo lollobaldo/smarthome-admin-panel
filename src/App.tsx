@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+
+import Header from './components/Header';
+// import Sidebar from './components/Sidebar';
+import Content from './components/Content';
+
+import { GlobalStyle } from './styles/theme';
+import { state as defaultState } from './utils/state';
 import './App.css';
 
 const App = () => {
-  console.log('Entry point');
+  const [state, setState] = useState(defaultState);
+
+  const { mode } = state;
+
+  const toggleTheme = () => {
+    setState({
+      mode: mode === 'light' ? 'dark' : 'light',
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={{ mode }}>
+      <GlobalStyle />
+      <Router>
+        {/* <Sidebar /> */}
+        <Header activeTheme={mode} toggleTheme={toggleTheme} />
+        <Content />
+      </Router>
+    </ThemeProvider>
   );
 };
 
