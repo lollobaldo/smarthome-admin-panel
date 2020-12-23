@@ -1,11 +1,15 @@
 import React from 'react';
+import styled from 'styled-components/macro';
+import theme from 'styled-theming';
 
-const Content = () => {
-  console.log('Entry point');
+import Presets from './Presets';
+import Devices from './Devices';
 
-  return (
-    <p>header</p>
-  );
-};
+const Content = () => (
+  <>
+    <Presets />
+    <Devices />
+  </>
+);
 
 export default Content;

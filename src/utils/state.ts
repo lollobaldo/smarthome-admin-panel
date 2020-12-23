@@ -1,18 +1,8 @@
-import { Mode } from '../styles/theme';
-
-import iconHome from '../res/icons/home.svg';
-import iconLight from '../res/icons/light-lamp.svg';
-import iconColorWheel from '../res/icons/color-wheel-2.svg';
-import iconPlant from '../res/icons/plant-potted.svg';
-import iconHeating from '../res/icons/heating.svg';
-
-export interface State {
-  mode: Mode,
-}
-
-export const state: State = {
-  mode: 'light',
-};
+import iconHome from 'res/icons/home.svg';
+import iconLight from 'res/icons/light-lamp.svg';
+import iconColorWheel from 'res/icons/color-wheel-2.svg';
+import iconPlant from 'res/icons/plant-potted.svg';
+import iconHeating from 'res/icons/heating.svg';
 
 export interface Page {
   path: string,

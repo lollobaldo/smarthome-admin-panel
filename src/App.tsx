@@ -2,30 +2,27 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import Header from './components/Header';
+import Header from 'components/Header';
 // import Sidebar from './components/Sidebar';
-import Content from './components/Content';
+import Content from 'components/Content';
 
-import { GlobalStyle } from './styles/theme';
-import { state as defaultState } from './utils/state';
+import { Theme, GlobalStyle } from 'styles/theme';
 
 const App = () => {
-  const [state, setState] = useState(defaultState);
+  const [theme, setTheme] = useState<Theme>('light');
 
-  const { mode } = state;
+  // const { mode, activePreset } = state;
 
   const toggleTheme = () => {
-    setState({
-      mode: mode === 'light' ? 'dark' : 'light',
-    });
+    setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
   return (
-    <ThemeProvider theme={{ mode }}>
+    <ThemeProvider theme={{ theme }}>
       <GlobalStyle />
       <Router>
         {/* <Sidebar /> */}
-        <Header activeTheme={mode} toggleTheme={toggleTheme} />
+        <Header activeTheme={theme} toggleTheme={toggleTheme} />
         <Content />
       </Router>
     </ThemeProvider>

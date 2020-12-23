@@ -5,7 +5,7 @@ import theme from 'styled-theming';
 export type DeviceType = 'mobile' | 'tablet' | 'desktop';
 type MediaQuerySize = Record<DeviceType, string>;
 
-export type Mode = 'light' | 'dark';
+export type Theme = 'light' | 'dark';
 
 const sizes: MediaQuerySize = {
   mobile: '425px',
@@ -13,8 +13,23 @@ const sizes: MediaQuerySize = {
   desktop: '2560px',
 };
 
-// console.log(keyof (typeof sizes));
-console.log((typeof sizes));
+export const pastelColors = {
+  transparent: 'rgba(0, 0, 0, 0)',
+  red: '#FF6961',
+  yellow: '#FFFD96',
+  orange: '#FFB447',
+  lightGreen: '#CEFC86',
+  green: '#77DD77',
+  lightBlue: '#A1C9F1',
+  blue: '#018AE6',
+  purple: '#B29DD9',
+};
+
+export const gradients = {
+  red: 'linear-gradient(45deg, #ff416c, #f45c43)',
+  purple: 'linear-gradient(45deg, #12c2e9, #c471ed, #f64f59)',
+  black: 'linear-gradient(45deg, #232526, #414345)',
+};
 
 export const mediaQuery = (key: DeviceType) => (
   `@media (min-width: ${sizes[key]})`
@@ -76,7 +91,7 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     margin: 0;
-    ${theme('mode', body)}
+    ${theme('theme', body)}
   }
 
   button, button:focus {

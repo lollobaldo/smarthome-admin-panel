@@ -3,15 +3,15 @@ import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import theme from 'styled-theming';
 
-import { Mode, mediaQuery, icon, card } from '../styles/theme';
-import { path2title } from '../utils/state';
+import { Theme, mediaQuery, icon, card } from 'styles/theme';
+import { path2title } from 'utils/state';
 
-import iconLeft from '../res/icons/back.svg';
-import iconDay from '../res/icons/day.svg';
-import iconNight from '../res/icons/night.svg';
+import iconLeft from 'res/icons/back.svg';
+import iconDay from 'res/icons/day.svg';
+import iconNight from 'res/icons/night.svg';
 
 const StyledHeader = styled.header`
-  ${theme('mode', card)}
+  ${theme('theme', card)}
   z-index: 10;
   height: 70px;
   display: flex;
@@ -33,7 +33,7 @@ const BackLink = styled(Link)`
   display: inline-flex;
   margin-right: 16px;
   & img {
-    ${theme('mode', icon)}
+    ${theme('theme', icon)}
     width: 2.5em;
   }
 `;
@@ -47,7 +47,7 @@ const NightModeButton = styled.button`
 const themeIcons = { light: iconDay, dark: iconNight };
 
 interface HeaderProps {
-  activeTheme: Mode,
+  activeTheme: Theme,
   toggleTheme: () => void,
 }
 
