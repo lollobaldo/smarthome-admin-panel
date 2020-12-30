@@ -41,7 +41,7 @@ const BackLink = styled(Link)`
 const NightModeButton = styled.button`
   width: 2.5em;
   padding: 0;
-  filter: drop-shadow(2px 4px 6px #000);
+  filter: drop-shadow(1px 2px 3px #777);
 `;
 
 const themeIcons = { light: iconDay, dark: iconNight };

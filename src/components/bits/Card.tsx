@@ -15,33 +15,77 @@ const StyledDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-`;
 
-const StyledIcon = styled.img`
-  margin: auto;
-  width: 75%;
-  height: 75%;
+  &:hover {
+    box-shadow: 0 4px 6px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.15);
+  }
 `;
 
 interface CardProps {
+  onClick?: () => void,
+  background?: string,
+  color?: string,
+  className?: string,
   children: React.ReactNode,
 }
 
-const Card = ({ children }: CardProps) => (
-  <StyledDiv>
+export const Card = ({ onClick, className, background, color, children }: CardProps) => (
+  <StyledDiv onClick={onClick} className={className} style={{ background, color }}>
     {children}
   </StyledDiv>
 );
 
 interface IconCardProps {
-  iconSrc: string,
-  iconAlt: string,
+  Icon: React.FunctionComponent<React.SVGProps<SVGSVGElement> & {
+    title?: string | undefined;
+  }>,
+  background?: string,
+  color?: string,
+  onClick?: () => void,
+  className?: string,
 }
 
-export const IconCard = ({ iconSrc, iconAlt }: IconCardProps) => (
-  <Card>
-    <StyledIcon src={iconSrc} alt={iconAlt} />
-  </Card>
+const StyledCard = styled(Card)`
+   & svg {
+     margin: auto;
+     width: 100%;
+     heigth: 100%;
+   }
+`;
+
+export const IconCard = ({ Icon, ...props }: IconCardProps) => (
+  <StyledCard {...props}>
+    <Icon />
+  </StyledCard>
+);
+
+interface DeviceCardProps {
+  name: string,
+  iconSrc: string,
+  value: React.ReactNode,
+  onClick?: () => void,
+  className?: string,
+}
+
+const StyledDeviceCard = styled(Card)`
+  margin: 16px 0;
+  width: 50%;
+  border-radius: 20px;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-evenly;
+`;
+
+const StyledIcon = styled.img`
+  width: 80px;
+`;
+
+export const DeviceCard = ({ name, iconSrc, value, onClick, className }: DeviceCardProps) => (
+  <StyledDeviceCard onClick={onClick} className={className}>
+    <StyledIcon src={iconSrc} />
+    <h4 style={{ margin: 'auto', marginTop: '1em' }}>{name}:</h4>
+    <p style={{ margin: 'auto', marginBottom: '1em' }}>{value}</p>
+  </StyledDeviceCard>
 );
 
 export default Card;

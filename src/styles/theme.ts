@@ -22,7 +22,7 @@ export const pastelColors = {
   green: '#77DD77',
   lightBlue: '#A1C9F1',
   blue: '#018AE6',
-  purple: '#B29DD9',
+  purple: '#c471ed',
 };
 
 export const gradients = {
@@ -86,6 +86,11 @@ export const icon = {
 
 export const GlobalStyle = createGlobalStyle`
   * {
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
     font-family: 'Montserrat', sans-serif;
   }
 

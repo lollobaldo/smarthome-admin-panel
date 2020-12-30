@@ -1,33 +1,30 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import theme from 'styled-theming';
 
-import Card from './bits/Card';
+import { LightsCard } from 'components/Lights';
+import { LedsCard } from 'components/Leds';
 
-const StyledDiv = styled.div`
+const StyledContainer = styled.div`
+  padding: 16px;
 `;
 
-interface DeviceProps {
-  name: string,
-  icon: string,
-  value?: React.ReactNode,
-}
+const StyledFlexbox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+`;
 
-const Device = () => {
-  console.log();
+const Devices = () => {
+  console.log('');
   return (
-    <StyledDiv />
+    <StyledContainer>
+      <h1>Devices</h1>
+      <StyledFlexbox>
+        <LightsCard />
+        <LedsCard />
+      </StyledFlexbox>
+    </StyledContainer>
   );
 };
-
-const Devices = () => (
-  <div>
-    {/* <Device
-      name="Light"
-      icon={iconLight}
-      value={getLightSwitch(state.lights.floorlamp, onLightSwitch)}
-      onClick={() => {}} /> */}
-  </div>
-);
 
 export default Devices;

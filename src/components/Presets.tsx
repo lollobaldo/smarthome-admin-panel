@@ -1,44 +1,68 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components/macro';
-import theme from 'styled-theming';
 
-import { IconCard } from 'components/bits/Card';
+import { useOneOf } from 'brains/hooks';
 
-import presetsDefaultState, { Preset, PresetsState } from 'utils/presets';
+import { Card } from 'components/bits/Card';
+
+import presets from 'utils/presets';
+
+const StyledContainer = styled.div`
+  padding: 16px;
+`;
 
 const StyledDiv = styled.div`
   display: flex;
+  justify-content: space-between;
+`;
+
+const StyledCard = styled(Card)`
+  margin: 0;
+
+  & svg {
+    margin: auto;
+    width: 100%;
+    heigth: 100%;
+  }
 `;
 
 export type PresetCardProps = {
   name: string,
   color: string,
   background: string,
-  icon: string,
+  Icon: React.FunctionComponent<React.SVGProps<SVGSVGElement> & {
+    title?: string | undefined;
+  }>,
   isActive: boolean,
+  onSelect: () => {},
 };
 
-const PresetCard = ({ name, color, background, icon, isActive }: PresetCardProps) => (
-  <IconCard iconSrc={icon} iconAlt={name} />
+const PresetCard = ({ name, Icon, onSelect, isActive, color, background }: PresetCardProps) => (
+  // <IconCard iconSrc={icon} iconAlt={name} onClick={onSelect} />
+  <StyledCard
+    onClick={onSelect}
+    color={isActive ? '#fff' : color}
+    background={isActive ? background : undefined}>
+    <Icon title={name} />
+  </StyledCard>
 );
 
-interface PresetsProps {
-  // activePreset: string | undefined,
-}
-
 const Presets = () => {
-  const [presetsState, setPresets] = useState<PresetsState>(presetsDefaultState);
-  const { activePreset, presets } = presetsState;
+  const [activePreset, changePreset] = useOneOf();
 
   return (
-    <>
+    <StyledContainer>
       <h1>Presets</h1>
       <StyledDiv>
         {presets.map((preset) => (
-          <PresetCard isActive={activePreset === preset.name} {...preset} />
+          <PresetCard
+            {...preset}
+            key={preset.name}
+            isActive={activePreset === preset.name}
+            onSelect={() => changePreset(preset.name)} />
         ))}
       </StyledDiv>
-    </>
+    </StyledContainer>
   );
 };
 
