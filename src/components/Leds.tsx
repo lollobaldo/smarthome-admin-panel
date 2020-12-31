@@ -1,5 +1,5 @@
 import React from 'react';
-import useLights from 'brains/useLights';
+import useLeds from 'brains/devices/useLeds';
 
 import { DeviceCard } from 'components/bits/Card';
 import Switch from 'components/bits/Switch';

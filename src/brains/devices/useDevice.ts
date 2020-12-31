@@ -5,7 +5,7 @@ import { useMqttFull } from 'brains/mqtt';
 type UseDeviceProps<T> = {
   topic: string,
   defaultState: T,
-  message2state: (lastState: T, message: string) => T,
+  message2state: (message: string, lastState?: T) => T,
   state2message: (T) => string,
 };
 
