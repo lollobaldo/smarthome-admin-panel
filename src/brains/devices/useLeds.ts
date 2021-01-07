@@ -1,20 +1,19 @@
-import { useDevice } from 'brains/devices/useDevice';
+import useDevice from 'brains/devices/useDevice';
 
 export type LedsState = {
-  brightness: number,
-  temperature: number,
+  color: string,
 };
 
-const defaultState = { brightness: 0, temperature: 0 };
+const defaultState = { color: '#000000' };
 
 const message2state = (message: string): LedsState => ({ color: message });
 
 const state2message = ({ color }: LedsState): string => (`${color}`);
 
-const useLeds = (topic: string = 'lights/bulbs'): { state: LedsState, switchLight: () => void } => {
+const useLeds = (topic: string = 'lights/leds'): { state: LedsState, setLeds: (color: string) => void } => {
   const [state, setState] = useDevice({ topic, defaultState, message2state, state2message });
 
-  const setLeds = (color) => {
+  const setLeds = (color: string) => {
     setState({ color });
   };
 

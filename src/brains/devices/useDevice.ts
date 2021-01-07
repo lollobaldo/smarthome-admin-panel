@@ -6,10 +6,10 @@ type UseDeviceProps<T> = {
   topic: string,
   defaultState: T,
   message2state: (message: string, lastState?: T) => T,
-  state2message: (T) => string,
+  state2message: (state: T) => string,
 };
 
-const useDevice = <T>({ topic, defaultState }: UseDeviceProps<T>):
+const useDevice = <T>({ topic, defaultState, message2state, state2message }: UseDeviceProps<T>):
 [state: T, setState: React.Dispatch<React.SetStateAction<T>>] => {
   const [state, setState] = useState<T>(defaultState);
   const { mqtt, state: m } = useMqttFull(topic);
@@ -23,8 +23,8 @@ const useDevice = <T>({ topic, defaultState }: UseDeviceProps<T>):
 
   // Update state on Mqtt change
   useEffect(() => {
-    if (message2state(state, m) !== state) {
-      setState(message2state(state, m));
+    if (message2state(m, state) !== state) {
+      setState(message2state(m, state));
     }
   }, [m]); // eslint-disable-line react-hooks/exhaustive-deps
 

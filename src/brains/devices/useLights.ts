@@ -1,4 +1,4 @@
-import { useDevice } from 'brains/devices/useDevice';
+import useDevice from 'brains/devices/useDevice';
 
 export type LightsState = {
   brightness: number,
@@ -7,7 +7,7 @@ export type LightsState = {
 
 const defaultState = { brightness: 0, temperature: 0 };
 
-const message2state = (message: string, lastState: LightsState): LightsState => {
+const message2state = (message: string, lastState: LightsState = defaultState): LightsState => {
   if (message === '/') {
     return { ...lastState, brightness: 0 };
   }
