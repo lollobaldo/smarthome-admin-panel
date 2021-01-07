@@ -14,7 +14,7 @@ export type DeviceCardProps = {
 
 export const LightsCard = () => {
   const { state, switchLight } = useLights();
-  const LightSwitch = <Switch state={state.brightness !== 0} onSwitch={switchLight} />;
+  const LightSwitch = <Switch state={state?.state} onSwitch={switchLight} />;
 
   return (
     <DeviceCard name="Lights" iconSrc={bulbIcon} value={LightSwitch} onClick={() => {}} />
