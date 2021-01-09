@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import theme from 'styled-theming';
 
-// import { Theme, mediaQuery, icon, card } from 'styles/theme';
 import { card } from 'styles/theme';
 
 const StyledDiv = styled.div`

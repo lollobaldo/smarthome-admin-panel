@@ -1,6 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
-// import './Switch.scss';
+import styled from 'styled-components/macro';
+import theme from 'styled-theming';
+
+import { card } from 'styles/theme';
 
 const StyledLabel = styled.label`
   & * {
@@ -8,10 +10,12 @@ const StyledLabel = styled.label`
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 
+  ${theme('theme', card)};
   position: relative;
   display: inline-block;
   width: 2em;
   height: 1.4em;
+  border-radius: 100px;
 
   /* Hide default HTML checkbox */
   input {

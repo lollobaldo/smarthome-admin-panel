@@ -8,7 +8,10 @@ export type LightsState = {
 
 const defaultState = { state: false, brightness: 255, temperature: 0 };
 
-const message2state = (message: string): LightsState => {
+const message2state = (message: string, oldState: LightsState = defaultState): LightsState => {
+  if (message && (message.charAt(0) === '#')) {
+    return oldState;
+  }
   if (message && (message.charAt(0) === 'N' || message.charAt(0) === 'F')) {
     const [brightness, temperature] = message.substring(1).split(',').map(Number);
     const state = message.charAt(0) === 'N';
