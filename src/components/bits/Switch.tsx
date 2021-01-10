@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import theme from 'styled-theming';
 
-import { card } from 'styles/theme';
+import { card, foreground } from 'styles/theme';
 
 const StyledLabel = styled.label`
   & * {
@@ -26,6 +26,7 @@ const StyledLabel = styled.label`
 
   /* The slider */
   .slider {
+    ${theme('theme', foreground)};
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -34,7 +35,6 @@ const StyledLabel = styled.label`
     bottom: 0;
     transition: .4s;
     box-shadow: none;
-    background: rgb(204, 204, 204);
   }
 
   .slider:before {
@@ -44,7 +44,7 @@ const StyledLabel = styled.label`
     width: 1.2em;
     left: 0.1em;
     bottom: 0.1em;
-    background-color: white;
+    background-color: currentColor;
     transition: .4s;
   }
 

@@ -8,6 +8,7 @@ import plantIcon from 'res/icons/plant-potted.svg';
 
 export const PlantsCard = () => {
   const { state } = useLevel('sensors/temperature');
+  console.log(state);
   const plantSwitch = <span>{state}</span>;
 
   return (

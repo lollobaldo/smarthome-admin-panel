@@ -72,7 +72,7 @@ export const foreground = {
   `,
   dark: css`
     background: #5f5f5f;
-    color: #ffffff;
+    color: #cccccc;
     transition: all 0.14s ease-in;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3), 0 2px 10px 0 rgba(0, 0, 0, 0.2);
   `,
