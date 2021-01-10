@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
@@ -9,7 +9,7 @@ import Header from 'components/Header';
 // import Sidebar from './components/Sidebar';
 import Content from 'components/Content';
 
-import { Theme, GlobalStyle } from 'styles/theme';
+import { GlobalStyle } from 'styles/theme';
 
 const App = () => {
   const [theme, setTheme] = useTheme();
