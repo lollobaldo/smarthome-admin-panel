@@ -28,7 +28,7 @@ const StyledModal = styled(Modal)`
 `;
 
 export const LedsCard = () => {
-  const { state } = useLeds();
+  const { state, setLeds } = useLeds();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const LedsIndicator = (
@@ -39,7 +39,7 @@ export const LedsCard = () => {
   return (
     <>
       <StyledModal isOpen={isModalOpen} handleClose={() => setIsModalOpen(false)}>
-        <ColorWheel state={state.color} handler={() => {}} />
+        <ColorWheel color={state.color} handler={setLeds} />
       </StyledModal>
       <DeviceCard name="Leds" iconSrc={colorWheelIcon} value={LedsIndicator} onClick={() => {}} />
     </>

@@ -5,12 +5,12 @@ import { useSpring, animated } from 'react-spring';
 import tinycolor from 'tinycolor2';
 
 type ColorWheelProps = {
-  state: string | string[],
-  handler: (state: string) => void,
+  color: string | string[],
+  handler: (color: string) => void,
   className?: string,
 };
 
-const ColorWheel = ({ state: selectedColor, handler, className }: ColorWheelProps) => {
+const ColorWheel = ({ color: selectedColor, handler, className }: ColorWheelProps) => {
   const colors = [
     '#FFFFFF',
     '#F8E300',
@@ -41,7 +41,8 @@ const ColorWheel = ({ state: selectedColor, handler, className }: ColorWheelProp
   const rrr = RR + padding;
   const RRR = rrr + outerCircleSize;
   const { kSpring: kOuterSpring } = useSpring({ kSpring: 1, from: { kSpring: 1 } });
-  const { kSpring: kMidddleSpring } = useSpring({ kSpring: 1, from: { kSpring: 1 } });
+  const { kSpring: kMidddleSpring } = useSpring({ kSpring: 1, from: { kSpring: 0 } });
+  console.log(kMidddleSpring);
   const [color, setColor] = useState(selectedColor);
 
   const changeColor = (newColor: string) => {
