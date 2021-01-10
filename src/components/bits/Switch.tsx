@@ -49,11 +49,11 @@ const StyledLabel = styled.label`
   }
 
   input:checked + .slider {
-    background-color: #4CAF50;
+    background-color: ${({ color }) => color || '#4CAF50'};
   }
 
   input:focus + .slider {
-    box-shadow: 0 0 1px #4CAF50;
+    box-shadow: 0 0 1px ${({ color }) => color || '#4CAF50'};
   }
 
   input:checked + .slider:before {
@@ -73,10 +73,11 @@ const StyledLabel = styled.label`
 type SwitchProps = {
   state: boolean,
   onSwitch: () => void,
+  color?: string,
 };
 
-const Switch = ({ state, onSwitch }: SwitchProps) => (
-  <StyledLabel onClick={(e) => e.stopPropagation()}>
+const Switch = ({ state, onSwitch, color }: SwitchProps) => (
+  <StyledLabel onClick={(e) => e.stopPropagation()} color={color}>
     <input
       type="checkbox"
       checked={state}

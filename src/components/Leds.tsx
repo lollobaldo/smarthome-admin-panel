@@ -1,26 +1,27 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
-import theme from 'styled-theming';
+// import theme from 'styled-theming';
 
 import useLeds from 'brains/devices/useLeds';
 
 import { DeviceCard } from 'components/bits/Card';
 import Modal from 'components/bits/Modal';
+import Switch from 'components/bits/Switch';
 
-import { card } from 'styles/theme';
+// import { card } from 'styles/theme';
 
 import ColorWheel from 'components/bits/ColorWheel';
 
 import colorWheelIcon from 'res/icons/color-wheel-2.svg';
 
-const ColoredDiv = styled.span`
-  ${theme('theme', card)};
-  display: inline-block;
-  width: 2em;
-  height: 1.4em;
-  border-radius: 100px;
-  background-color: ${({ color }) => `${color}`};
-`;
+// const ColoredDiv = styled.span`
+//   ${theme('theme', card)};
+//   display: inline-block;
+//   width: 2em;
+//   height: 1.4em;
+//   border-radius: 100px;
+//   background-color: ${({ color }) => `${color}`};
+// `;
 
 const StyledModal = styled(Modal)`
   border-radius: 100%;
@@ -28,20 +29,17 @@ const StyledModal = styled(Modal)`
 `;
 
 export const LedsCard = () => {
-  const { state, setLeds } = useLeds();
+  const { state, setLeds, toggleLeds } = useLeds();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const LedsIndicator = (
-    <ColoredDiv
-      color={state.color} onClick={() => setIsModalOpen(true)} />
-  );
+  const LedsSwitch = <Switch state={state.state} onSwitch={toggleLeds} color={state.color} />;
 
   return (
     <>
       <StyledModal isOpen={isModalOpen} handleClose={() => setIsModalOpen(false)}>
         <ColorWheel color={state.color} handler={setLeds} />
       </StyledModal>
-      <DeviceCard name="Leds" iconSrc={colorWheelIcon} value={LedsIndicator} onClick={() => {}} />
+      <DeviceCard name="Leds" iconSrc={colorWheelIcon} value={LedsSwitch} onClick={() => {}} />
     </>
   );
 };
