@@ -1,9 +1,14 @@
 import useDevice from 'brains/devices/useDevice';
 
-export type LightsState = {
+type LightsState = {
   state: boolean,
   brightness: number,
   temperature: number,
+};
+
+type LightsApi = {
+  state: LightsState,
+  toggleLight: () => void,
 };
 
 const defaultState = { state: false, brightness: 255, temperature: 0 };
@@ -24,14 +29,14 @@ const state2message = ({ state, brightness, temperature }: LightsState): string 
   `${state ? 'N' : 'F'}${brightness},${temperature}`
 );
 
-const useLights = (topic: string = 'lights/bulbs'): { state: LightsState, switchLight: () => void } => {
+const useLights = (topic: string = 'lights/bulbs'): LightsApi => {
   const [state, setState] = useDevice({ topic, defaultState, message2state, state2message });
 
-  const switchLight = () => {
+  const toggleLight = () => {
     setState((lightState) => ({ ...lightState, state: !lightState?.state }));
   };
 
-  return { state, switchLight };
+  return { state, toggleLight };
 };
 
 export default useLights;

@@ -12,21 +12,22 @@ type UseDeviceProps<T> = {
 const useDevice = <T>({ topic, defaultState, message2state, state2message }: UseDeviceProps<T>):
 [state: T, setState: React.Dispatch<React.SetStateAction<T>>] => {
   const [state, setState] = useState<T>(defaultState);
-  const [incomingState, setIncomingState] = useState<T>(defaultState);
+  const [mqttState, setMqttState] = useState<T>(defaultState);
   const { mqtt, state: m } = useMqttFull(topic);
 
   // Update Mqtt on state change
   useEffect(() => {
-    setIncomingState(state);
-    if (mqtt) {
+    if (mqtt && state !== mqttState) {
       mqtt.publish(topic, state2message(state), { retain: true });
     }
   }, [mqtt, state]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Update state on Mqtt change
   useEffect(() => {
-    if (message2state(m, state) !== incomingState) {
-      setState(message2state(m, state));
+    const mState = message2state(m, state);
+    setMqttState(mState);
+    if (state !== mState) {
+      setState(mState);
     }
   }, [m]); // eslint-disable-line react-hooks/exhaustive-deps
 

@@ -42,7 +42,6 @@ const ColorWheel = ({ state: selectedColor, handler, className }: ColorWheelProp
   const RRR = rrr + outerCircleSize;
   const { kSpring: kOuterSpring } = useSpring({ kSpring: 1, from: { kSpring: 1 } });
   const { kSpring: kMidddleSpring } = useSpring({ kSpring: 1, from: { kSpring: 1 } });
-  console.log(selectedColor);
   const [color, setColor] = useState(selectedColor);
 
   const changeColor = (newColor: string) => {
@@ -110,7 +109,6 @@ const ColorWheel = ({ state: selectedColor, handler, className }: ColorWheelProp
       kSpring={kOuterSpring} onColorSelect={changeColor} />
   );
 
-  console.log(color);
   return (
     <svg
       className={className}

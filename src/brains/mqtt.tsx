@@ -50,7 +50,7 @@ export const MqttProvider = ({ children }: MqttProviderProps) => {
     });
 
     mqttInstance.on('message', (topic, message) => {
-      console.log(`Message in topic[${topic}: ${message}]`);
+      console.log(`Message in topic[${topic}]: ${message}`);
       setMessages((m) => ({ ...m, [topic]: message.toString() }));
     });
 

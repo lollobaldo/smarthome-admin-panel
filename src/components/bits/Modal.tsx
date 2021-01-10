@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components/macro';
 import theme from 'styled-theming';
 
@@ -6,10 +6,11 @@ import { card } from 'styles/theme';
 
 const StyledModalBackdrop = styled.div`
   transition: background .6s;
-  background: rgba(100,100,100, ${({ isOpen }: { isOpen: boolean }) => (isOpen ? 0.7 : 0)});
+  background: rgba(100,100,100, ${({ isOpen }: { isOpen: boolean }) => (isOpen ? 0.8 : 0)});
   /* opacity: 0.5; */
-  width: ${({ isOpen }: { open: boolean }) => (isOpen ? '100%' : '0')};
+  width: ${({ isOpen }: { isOpen: boolean }) => (isOpen ? '100%' : '0')};
   height: 100%;
+  z-index: 5;
   position: absolute;
   top: 0;
   left: 0;
@@ -26,17 +27,16 @@ const StyledModalContent = styled.div`
   border-radius: 100%;
 `;
 
-export type ModalProps = {
+type ModalProps = {
   isOpen: boolean,
   handleClose: () => void,
   className?: string,
-  style?: CSSProperties,
   children: React.ReactNode,
 };
 
-export const Modal = ({ isOpen, handleClose, style, children }: ModalProps) => (
+const Modal = ({ isOpen, handleClose, className, children }: ModalProps) => (
   <StyledModalBackdrop isOpen={isOpen} onClick={handleClose}>
-    <StyledModalContent isOpen={isOpen} onClick={(e) => e.stopPropagation()} style={style}>
+    <StyledModalContent isOpen={isOpen} onClick={(e) => e.stopPropagation()} className={className}>
       {children}
     </StyledModalContent>
   </StyledModalBackdrop>

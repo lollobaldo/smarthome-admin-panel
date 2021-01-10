@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 
 export const useOneOf = <T>(selected: T | undefined = undefined) => {
   const [state, setState] = useState(selected);

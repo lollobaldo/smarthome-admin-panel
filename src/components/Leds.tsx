@@ -22,12 +22,9 @@ const ColoredDiv = styled.span`
   background-color: ${({ color }) => `${color}`};
 `;
 
-const StyledModal = styled(ColorWheel)`
-  ${theme('theme', card)};
-  transition: .6s;
-  width: ${({ open }: { open: boolean }) => (open ? '80%' : '0')};
-  height: auto;
+const StyledModal = styled(Modal)`
   border-radius: 100%;
+  background: transparent;
 `;
 
 export const LedsCard = () => {
@@ -41,9 +38,9 @@ export const LedsCard = () => {
 
   return (
     <>
-      <Modal isOpen={isModalOpen} handleClose={() => setIsModalOpen(false)}>
+      <StyledModal isOpen={isModalOpen} handleClose={() => setIsModalOpen(false)}>
         <ColorWheel state={state.color} handler={() => {}} />
-      </Modal>
+      </StyledModal>
       <DeviceCard name="Leds" iconSrc={colorWheelIcon} value={LedsIndicator} onClick={() => {}} />
     </>
   );

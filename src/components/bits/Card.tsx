@@ -6,7 +6,7 @@ import { card } from 'styles/theme';
 
 const StyledDiv = styled.div`
   ${theme('theme', card)};
-  margin: 16px 8px;
+  margin: auto;
   width: 100px;
   height: 100px;
   border-radius: 20%;
@@ -67,8 +67,9 @@ interface DeviceCardProps {
 }
 
 const StyledDeviceCard = styled(Card)`
-  margin: 16px 0;
-  width: 50%;
+  margin: auto;
+  min-width: 150px;
+  width: calc(50% - 8px);
   border-radius: 20px;
   display: flex;
   flex-flow: column wrap;
