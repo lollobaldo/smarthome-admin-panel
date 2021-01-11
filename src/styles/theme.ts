@@ -10,7 +10,7 @@ export type Theme = 'light' | 'dark';
 const sizes: MediaQuerySize = {
   mobile: '425px',
   tablet: '768px',
-  desktop: '2560px',
+  desktop: '1050px',
 };
 
 export const pastelColors = {
@@ -97,6 +97,14 @@ export const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     ${theme('theme', body)}
+  }
+
+  html, body, #root, #app {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overscroll-behavior-y: contain;
   }
 
   button, button:focus {
