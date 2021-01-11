@@ -36,6 +36,8 @@ const Container = styled.div`
 
   & img, & svg {
     position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -43,8 +45,10 @@ const Container = styled.div`
 `;
 
 const LitBulb = styled(BulbCap)`
+  transition: width 0.1s;
+  width: ${(props) => (props.color ? '100%' : '0')} !important;
   color: ${(props) => props.color};
-  filter: ${({ color }) => `drop-shadow(0 0 6px ${color}) drop-shadow(0 0 16px ${color})`};
+  filter: ${({ color }) => `drop-shadow(0 0 16px ${color}) drop-shadow(0 0 32px ${color})`};
 `;
 
 interface BulbProps {
@@ -61,7 +65,8 @@ interface BulbProps {
 const Bulb = ({ onClick, color, className, style }: BulbProps) => (
   <Container onClick={onClick} className={className} style={style}>
     <img src={bulb} alt="" />
-    {color ? <LitBulb color={color} title="" /> : <img src={bulbCap} alt="" />}
+    <img src={bulbCap} alt="" />
+    <LitBulb color={color} title="" />
   </Container>
 );
 

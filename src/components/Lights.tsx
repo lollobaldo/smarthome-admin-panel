@@ -1,9 +1,11 @@
 import React from 'react';
+import styled from 'styled-components/macro';
 
 import useLights from 'brains/devices/useLights';
 
 import { DeviceCard } from 'components/bits/Card';
 import Switch from 'components/bits/Switch';
+import Bulb from 'components/bits/Bulb';
 
 import bulbIcon from 'res/icons/bulb.svg';
 
@@ -21,10 +23,16 @@ export const LightsCard = () => {
   );
 };
 
+const AnimatedBulb = styled(Bulb)`
+  margin: auto;
+  width: 80%;
+`;
+
 const Lights = () => {
-  console.log('');
+  const { state, toggleLight } = useLights();
+  const color = state.state ? '#ffdd44' : undefined;
   return (
-    <div />
+    <AnimatedBulb onClick={toggleLight} color={color} />
   );
 };
 

@@ -75,7 +75,7 @@ const App = () => {
     <MqttProvider>
       <Router>
         <ThemeProvider theme={{ theme }}>
-          <AppScreen>
+          <AppScreen id="app">
             <GlobalStyle />
             <Header activeTheme={theme} toggleTheme={toggleTheme} />
             <Content />
