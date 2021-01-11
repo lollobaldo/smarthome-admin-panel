@@ -6,7 +6,6 @@ import { MqttProvider } from 'brains/mqtt';
 import { useTheme } from 'brains/hooks';
 
 import Header from 'components/Header';
-// import Sidebar from './components/Sidebar';
 import Content from 'components/Content';
 
 import { GlobalStyle } from 'styles/theme';
@@ -20,14 +19,13 @@ const App = () => {
 
   return (
     <MqttProvider>
-      <ThemeProvider theme={{ theme }}>
-        <GlobalStyle />
-        <Router>
-          {/* <Sidebar /> */}
+      <Router>
+        <ThemeProvider theme={{ theme }}>
+          <GlobalStyle />
           <Header activeTheme={theme} toggleTheme={toggleTheme} />
           <Content />
-        </Router>
-      </ThemeProvider>
+        </ThemeProvider>
+      </Router>
     </MqttProvider>
   );
 };

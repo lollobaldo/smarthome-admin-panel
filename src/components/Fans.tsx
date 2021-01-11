@@ -12,7 +12,7 @@ export const FansCard = () => {
   const FansSwitch = <Switch state={state} onSwitch={toggleState} />;
 
   return (
-    <DeviceCard name="Fans" iconSrc={bulbIcon} value={FansSwitch} onClick={() => {}} />
+    <DeviceCard name="Fans" iconSrc={bulbIcon} value={FansSwitch} />
   );
 };
 

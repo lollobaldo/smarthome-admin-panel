@@ -12,7 +12,7 @@ export const PlantsCard = () => {
   const plantSwitch = <span>{state}</span>;
 
   return (
-    <DeviceCard name="Plants" iconSrc={plantIcon} value={plantSwitch} onClick={() => {}} />
+    <DeviceCard name="Plants" iconSrc={plantIcon} value={plantSwitch} />
   );
 };
 

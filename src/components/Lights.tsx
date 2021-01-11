@@ -17,7 +17,7 @@ export const LightsCard = () => {
   const LightSwitch = <Switch state={state?.state} onSwitch={toggleLight} />;
 
   return (
-    <DeviceCard name="Lights" iconSrc={bulbIcon} value={LightSwitch} onClick={() => {}} />
+    <DeviceCard name="Lights" path="lights" iconSrc={bulbIcon} value={LightSwitch} />
   );
 };
 

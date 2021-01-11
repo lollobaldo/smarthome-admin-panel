@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import theme from 'styled-theming';
 
@@ -58,14 +59,6 @@ export const IconCard = ({ Icon, ...props }: IconCardProps) => (
   </StyledCard>
 );
 
-interface DeviceCardProps {
-  name: string,
-  iconSrc: string,
-  value: React.ReactNode,
-  onClick?: () => void,
-  className?: string,
-}
-
 const StyledDeviceCard = styled(Card)`
   margin: auto;
   min-width: 150px;
@@ -80,12 +73,23 @@ const StyledIcon = styled.img`
   width: 80px;
 `;
 
-export const DeviceCard = ({ name, iconSrc, value, onClick, className }: DeviceCardProps) => (
-  <StyledDeviceCard onClick={onClick} className={className}>
-    <StyledIcon src={iconSrc} />
-    <h4 style={{ margin: 'auto', marginTop: '1em' }}>{name}:</h4>
-    <p style={{ margin: 'auto', marginBottom: '1em' }}>{value}</p>
-  </StyledDeviceCard>
-);
+interface DeviceCardProps {
+  name: string,
+  path?: string,
+  iconSrc: string,
+  value: React.ReactNode,
+  className?: string,
+}
+
+export const DeviceCard = ({ name, path, iconSrc, value, className }: DeviceCardProps) => {
+  const history = useHistory();
+  return (
+    <StyledDeviceCard onClick={() => path && history.push(path)} className={className}>
+      <StyledIcon src={iconSrc} />
+      <h4 style={{ margin: 'auto', marginTop: '1em' }}>{name}:</h4>
+      <p style={{ margin: 'auto', marginBottom: '1em' }}>{value}</p>
+    </StyledDeviceCard>
+  );
+};
 
 export default Card;

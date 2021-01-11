@@ -39,15 +39,16 @@ export const LedsCard = () => {
       <StyledModal isOpen={isModalOpen} handleClose={() => setIsModalOpen(false)}>
         <ColorWheel color={state.color} handler={setLeds} />
       </StyledModal>
-      <DeviceCard name="Leds" iconSrc={colorWheelIcon} value={LedsSwitch} onClick={() => {}} />
+      <DeviceCard name="Leds" path="leds" iconSrc={colorWheelIcon} value={LedsSwitch} />
     </>
   );
 };
 
 const Leds = () => {
-  console.log('');
+  const { state, setLeds } = useLeds();
+
   return (
-    <div />
+    <ColorWheel color={state.color} handler={setLeds} />
   );
 };
 

@@ -11,7 +11,7 @@ export const HeaterCard = () => {
   const FansSwitch = <span>{state}</span>;
 
   return (
-    <DeviceCard name="Heater" iconSrc={heatingIcon} value={FansSwitch} onClick={() => {}} />
+    <DeviceCard name="Heater" iconSrc={heatingIcon} value={FansSwitch} />
   );
 };
 
