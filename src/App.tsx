@@ -11,6 +11,12 @@ import Content from 'components/Content';
 import { GlobalStyle, mediaQuery } from 'styles/theme';
 
 const StyledAppScreen = styled.div`
+  height: 100%;
+
+  & #content {
+    height: 100%;
+  }
+
   ${mediaQuery('desktop')} {
     box-sizing: content-box;
     position: relative;
