@@ -37,44 +37,55 @@ export const mediaQuery = (key: DeviceType) => (
 
 export const body = {
   light: css`
+    transition: background 0.14s ease-in, color 0.14s ease-in;
     background: #f5f5f5;
     color: #000000;
-    transition: all 0.14s ease-in;
   `,
   dark: css`
+    transition: background 0.14s ease-in, color 0.14s ease-in;
     background: #222;
     color: #dddddd;
-    transition: all 0.14s ease-in;
   `,
 };
 
 export const card = {
   light: css`
+    transition: background 0.14s ease-in, color 0.14s ease-in, box-shadow 0.14s ease-in;
     background: #ffffff;
     color: #000000;
-    transition: all 0.14s ease-in;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   `,
   dark: css`
+    transition: background 0.14s ease-in, color 0.14s ease-in, box-shadow 0.14s ease-in;
     background: #333;
     color: #dddddd;
-    transition: all 0.14s ease-in;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3), 0 2px 10px 0 rgba(0, 0, 0, 0.2);
   `,
 };
 
 export const foreground = {
   light: css`
+    transition: background 0.14s ease-in, color 0.14s ease-in, box-shadow 0.14s ease-in;
     background: #cccccc;
     color: #ffffff;
-    transition: all 0.14s ease-in;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   `,
   dark: css`
+    transition: background 0.14s ease-in, color 0.14s ease-in, box-shadow 0.14s ease-in;
     background: #5f5f5f;
     color: #cccccc;
-    transition: all 0.14s ease-in;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3), 0 2px 10px 0 rgba(0, 0, 0, 0.2);
+  `,
+};
+
+export const slider = {
+  light: css`
+    transition: background 0.14s ease-in;
+    background: #ffffff;
+  `,
+  dark: css`
+    transition: background 0.14s ease-in;
+    background: #5f5f5f;
   `,
 };
 

@@ -8,6 +8,7 @@ type LightsState = {
 
 type LightsApi = {
   state: LightsState,
+  setBrightness: (brightness: number) => void,
   toggleLight: () => void,
 };
 
@@ -36,7 +37,11 @@ const useLights = (topic: string = 'lights/bulbs'): LightsApi => {
     setState((lightState) => ({ ...lightState, state: !lightState?.state }));
   };
 
-  return { state, toggleLight };
+  const setBrightness = (b: number) => {
+    setState((lightState) => ({ ...lightState, brightness: b }));
+  };
+
+  return { state, setBrightness, toggleLight };
 };
 
 export default useLights;
