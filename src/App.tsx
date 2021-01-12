@@ -10,7 +10,7 @@ import Content from 'components/Content';
 
 import { GlobalStyle, mediaQuery } from 'styles/theme';
 
-const AppScreen = styled.div`
+const StyledAppScreen = styled.div`
   ${mediaQuery('desktop')} {
     box-sizing: content-box;
     position: relative;
@@ -56,6 +56,7 @@ const AppScreen = styled.div`
     /* The screen (or content) of the device */
     & #content {
       overflow: hidden;
+      overflow-y: scroll;
       width: 1024px;
       height: 600px;
       background: #F5F5F5;
@@ -63,6 +64,14 @@ const AppScreen = styled.div`
   }
 }
 `;
+
+const AppScreen = ({ children }: { children: React.ReactNode }) => (
+  <StyledAppScreen>
+    <div id="content">
+      {children}
+    </div>
+  </StyledAppScreen>
+);
 
 const App = () => {
   const [theme, setTheme] = useTheme();
@@ -75,7 +84,7 @@ const App = () => {
     <MqttProvider>
       <Router>
         <ThemeProvider theme={{ theme }}>
-          <AppScreen id="app">
+          <AppScreen>
             <GlobalStyle />
             <Header activeTheme={theme} toggleTheme={toggleTheme} />
             <Content />
