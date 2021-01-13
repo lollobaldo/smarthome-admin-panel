@@ -15,6 +15,8 @@ const StyledAppScreen = styled.div`
 
   & #content {
     height: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   ${mediaQuery('desktop')} {

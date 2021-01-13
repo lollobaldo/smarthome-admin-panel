@@ -5,6 +5,11 @@ import theme from 'styled-theming';
 import { slider } from 'styles/theme';
 
 const StyledInput = styled.input`
+  & * {
+    // Needed to avoid blue box on click
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+
   margin: auto;
   -webkit-appearance: none;
   position: relative;

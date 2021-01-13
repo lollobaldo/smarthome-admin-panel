@@ -28,6 +28,7 @@ const LightsPage = styled.div`
   position: relative;
   height: 100%;
   display: flex;
+  overflow: hidden;
 `;
 
 const AnimatedBulb = styled(Bulb)`
