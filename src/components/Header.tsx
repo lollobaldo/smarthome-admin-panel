@@ -4,6 +4,8 @@ import styled from 'styled-components/macro';
 import theme from 'styled-theming';
 
 import { Theme, mediaQuery, icon, card } from 'styles/theme';
+
+import { useTheme } from 'brains/theme';
 import { path2title } from 'utils/state';
 
 import iconLeft from 'res/icons/back.svg';
@@ -46,13 +48,9 @@ const NightModeButton = styled.button`
 
 const themeIcons = { light: iconDay, dark: iconNight };
 
-interface HeaderProps {
-  activeTheme: Theme,
-  toggleTheme: () => void,
-}
-
-const Header = ({ activeTheme, toggleTheme }: HeaderProps) => {
+const Header = () => {
   const { pathname } = useLocation();
+  const { activeTheme, toggleTheme } = useTheme();
   return (
     <StyledHeader>
       {pathname !== '/'

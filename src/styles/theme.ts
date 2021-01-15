@@ -1,5 +1,5 @@
 // import React from 'react';
-import { createGlobalStyle, css } from 'styled-components';
+import { createGlobalStyle, css, keyframes } from 'styled-components';
 import theme from 'styled-theming';
 
 export type DeviceType = 'mobile' | 'tablet' | 'desktop';
@@ -110,12 +110,9 @@ export const GlobalStyle = createGlobalStyle`
     ${theme('theme', body)}
   }
 
-  html, body, #root, #app {
-    height: 100%;
-    width: 100%;
+  #root {
+    height: 100vh;
     display: flex;
-    flex-direction: column;
-    overscroll-behavior-y: contain;
   }
 
   button, button:focus {

@@ -1,7 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
 
-import { Theme } from 'styles/theme';
-
 export const useOneOf = <T>(selected: T | undefined = undefined) => {
   const [state, setState] = useState(selected);
   const change = (key: T) => {
@@ -33,14 +31,12 @@ export const useMediaQuery = (query: string, defaultState = false) => {
   return state;
 };
 
-export const useTheme = (defaultTheme: Theme = 'light'):
-[Theme, React.Dispatch<React.SetStateAction<Theme>>] => {
-  const [theme, setTheme] = useState(defaultTheme);
-  const userAgentTheme = useMediaQuery('(prefers-color-scheme: light)', defaultTheme === 'light');
+export const usePin = () => {
+  const [pin, setPin] = useState('');
 
-  useEffect(() => {
-    setTheme(userAgentTheme ? 'light' : 'dark');
-  }, [userAgentTheme]);
+  const type = (c: string) => setPin(pin + c);
+  const del = () => setPin(pin.slice(0, -1));
+  const reset = () => setPin('');
 
-  return [theme, setTheme];
+  return { pin, type, del, reset };
 };

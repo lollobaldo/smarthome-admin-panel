@@ -6,7 +6,7 @@ type LevelState = {
 
 const defaultState = { state: 0 };
 
-const message2state = (message: string): LevelState => ({ state: Number(message) });
+const message2state = (message: string): LevelState => ({ state: Number(message) || 0 });
 
 const state2message = ({ state }: LevelState): string => `${state}`;
 
