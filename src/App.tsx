@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { AuthProvider, AuthContext, useAuth } from 'brains/auth';
+import { AuthProvider, useAuth } from 'brains/auth';
 import { MqttProvider } from 'brains/mqtt';
 import { ThemeProvider } from 'brains/theme';
 

@@ -1,8 +1,7 @@
-import App from 'App';
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import { GlobalStyle, mediaQuery } from 'styles/theme';
+import { mediaQuery } from 'styles/theme';
 
 const StyledAppScreen = styled.div`
   width: 100%;

@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import styled, { css } from 'styled-components/macro';
+import React from 'react';
+import styled from 'styled-components/macro';
 
 import { Shake } from 'styles/animations';
 
@@ -54,7 +54,7 @@ const PinDigit = styled.input`
 `;
 
 const Screenlock = ({ lock }: { lock: boolean }) => {
-  const { auth, useAuthenticate } = useAuth();
+  const { useAuthenticate } = useAuth();
   const { pin, type, del, reset } = usePin();
   const isValidPin = useAuthenticate(pin);
   const isInvalid = pin.length === 4 && !isValidPin;

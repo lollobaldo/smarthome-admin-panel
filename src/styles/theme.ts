@@ -1,5 +1,5 @@
 // import React from 'react';
-import { createGlobalStyle, css, keyframes } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components';
 import theme from 'styled-theming';
 
 export type DeviceType = 'mobile' | 'tablet' | 'desktop';

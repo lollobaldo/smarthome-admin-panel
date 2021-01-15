@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         setStatus('none');
         setUser('');
       }
-    }, [pin, hash]);
+    }, [isValidUser, hash]);
     // console.log(user, status);
     return isValidUser;
   };

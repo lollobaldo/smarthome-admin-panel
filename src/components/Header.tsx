@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import theme from 'styled-theming';
 
-import { Theme, mediaQuery, icon, card } from 'styles/theme';
+import { mediaQuery, icon, card } from 'styles/theme';
 
 import { useTheme } from 'brains/theme';
 import { path2title } from 'utils/state';
