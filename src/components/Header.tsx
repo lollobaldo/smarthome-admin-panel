@@ -3,10 +3,11 @@ import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import theme from 'styled-theming';
 
-import { mediaQuery, icon, card } from 'styles/theme';
-
+import { useAuth } from 'brains/auth';
 import { useTheme } from 'brains/theme';
 import { path2title } from 'utils/state';
+
+import { mediaQuery, icon, card } from 'styles/theme';
 
 import iconLeft from 'res/icons/back.svg';
 import iconDay from 'res/icons/day.svg';
@@ -50,6 +51,7 @@ const themeIcons = { light: iconDay, dark: iconNight };
 
 const Header = () => {
   const { pathname } = useLocation();
+  const { username } = useAuth().user;
   const { activeTheme, toggleTheme } = useTheme();
   return (
     <StyledHeader>
@@ -64,7 +66,7 @@ const Header = () => {
           <img src={iconLeft} alt="" />
         </BackLink>
         )}
-      <h1>{path2title(pathname) || 'Hi Lorenzo!'}</h1>
+      <h1>{path2title(pathname) || `Hi ${username}!`}</h1>
       <NightModeButton onClick={toggleTheme}>
         <img src={themeIcons[activeTheme]} alt="Change theme" />
       </NightModeButton>

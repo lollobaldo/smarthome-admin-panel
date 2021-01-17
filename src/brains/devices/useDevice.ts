@@ -18,7 +18,7 @@ const useDevice = <T>({ topic, defaultState, message2state, state2message }: Use
   // Update Mqtt on state change
   useEffect(() => {
     if (mqtt && state !== mqttState) {
-      mqtt.publish(topic, state2message(state), { retain: true });
+      mqtt?.publish(topic, state2message(state), { retain: true });
     }
   }, [mqtt, state]); // eslint-disable-line react-hooks/exhaustive-deps
 

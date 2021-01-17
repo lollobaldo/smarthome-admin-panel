@@ -1,4 +1,4 @@
-import React, { useState, useContext, createContext, useEffect } from 'react';
+import React, { useContext, createContext } from 'react';
 
 import crypto from 'crypto';
 
@@ -53,21 +53,6 @@ type AuthProviderProps = { children: React.ReactNode };
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useLocalStorage('user', users.empty);
-
-  // const useAuthenticate = (pin: string) => {
-  //   const hash = crypto.createHash('md5').update(pin).digest('hex');
-  //   const isValidUser = Object.prototype.hasOwnProperty.call(users, hash);
-  //   useEffect(() => {
-  //     if (pin.length === 4 && isValidUser) {
-  //       console.log(`${users[hash].username} logged in as ${users[hash].permissions}`);
-  //       setUser(users[hash]);
-  //     } else if (pin.length === 4) {
-  //       console.log('Logout');
-  //       setUser(users.empty);
-  //     }
-  //   }, [isValidUser, hash, pin]);
-  //   return isValidUser;
-  // };
 
   const authenticate = (pin: string) => {
     const hash = crypto.createHash('md5').update(pin).digest('hex');

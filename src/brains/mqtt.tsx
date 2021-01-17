@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect, useContext, createContext } from 'react';
 import { connect, MqttClient, IClientPublishOptions } from 'mqtt';
 
+import { useAuth } from 'brains/auth';
+
 const mqttServer = 'mqtts://mqtt.flespi.io';
 const mqttOptions = {
   username: process.env.REACT_APP_MQTT_USER,
@@ -28,10 +30,14 @@ type MqttProviderProps = { children: React.ReactNode };
 export const MqttProvider = ({ children }: MqttProviderProps) => {
   const [status, setStatus] = useState<MqttStatus>('disconnected');
   const [messages, setMessages] = useState({});
+  const { permissions } = useAuth().user;
 
   const client = useRef<MqttClient>();
 
   useEffect(() => {
+    if (permissions === 'none' || permissions === 'guest') {
+      return () => {};
+    }
     const credentials = { ...mqttOptions, clientId: generateClientId() };
     console.log(mqttServer, credentials);
     const mqttInstance = connect(mqttServer, credentials);
@@ -57,7 +63,7 @@ export const MqttProvider = ({ children }: MqttProviderProps) => {
     return () => {
       mqttInstance.end();
     };
-  }, []);
+  }, [permissions]);
 
   return (
     <MqttContext.Provider value={{ mqtt: client.current, status, messages }}>
