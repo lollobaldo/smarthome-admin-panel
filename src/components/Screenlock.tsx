@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
+import theme from 'styled-theming';
 
 import { Shake } from 'styles/animations';
 
 import { usePin } from 'brains/hooks';
 import { useAuth } from 'brains/auth';
 
+import { colors, modal, card } from 'styles/theme';
+
 const StyledScreen = styled.div<{ lock: boolean }>`
+  ${theme('theme', modal)};
   position: absolute;
   top: ${({ lock }: { lock: boolean }) => (lock ? '0' : '-100%')};
   transition: all 1s;
   z-index: 20;
   width: 100%;
   height: 100%;
-  background: #5533ff;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -21,8 +24,14 @@ const StyledScreen = styled.div<{ lock: boolean }>`
   align-items: center;
 `;
 
-const KeyPad = styled.div<{ invalid: boolean}>`
-  background: #f5f5f5;
+const getBorderColor = (isValidPin: boolean | undefined) => {
+  if (isValidPin) { return '#0f0'; }
+  if (isValidPin === false) { return '#f00'; }
+  return colors.secondary;
+};
+
+const KeyPad = styled.div<{ isValidPin: boolean | undefined}>`
+  ${theme('theme', card)};
   width: 300px;
   height: 400px;
   padding: 30px;
@@ -33,7 +42,7 @@ const KeyPad = styled.div<{ invalid: boolean}>`
     width: 100%;
     height: 20%;
     padding: 0 16px;
-    outline: 1px solid ${({ invalid }) => (invalid ? '#f00' : '#ccc')};
+    outline: 1px solid ${(props) => getBorderColor(props.isValidPin)};
     font-size: xxx-large;
     font-weight: bold;
 
@@ -54,18 +63,32 @@ const PinDigit = styled.input`
 `;
 
 const Screenlock = ({ lock }: { lock: boolean }) => {
-  const { useAuthenticate } = useAuth();
+  const pinLength = 4;
   const { pin, type, del, reset } = usePin();
-  const isValidPin = useAuthenticate(pin);
-  const isInvalid = pin.length === 4 && !isValidPin;
-  if (isInvalid) { console.log(pin); }
+  const [isValidPin, setIsValidPin] = useState<boolean | undefined>(undefined);
+  const { authenticate } = useAuth();
+
+  useEffect(() => {
+    if (pin.length === pinLength) {
+      setIsValidPin(authenticate(pin));
+    }
+  }, [pin, authenticate]);
+
+  const resetAll = () => {
+    reset();
+    setIsValidPin(undefined);
+  };
+
+  // const isValidPin = useAuthenticate(pin);
+  // const isInvalid = pin.length === 4 && !isValidPin;
+  // if (isValidPin) { console.log(pin); }
   return (
     <StyledScreen lock={lock}>
-      <KeyPad invalid={isInvalid}>
+      <KeyPad isValidPin={isValidPin}>
         <Shake
           className="dots"
-          playState={isInvalid ? 'running' : 'paused'}
-          onAnimationEnd={() => reset()}>
+          playState={isValidPin !== false ? 'none' : 'running'}
+          onAnimationEnd={resetAll}>
           {[0, 1, 2, 3].map((_, i) => (
             // eslint-disable-next-line react/no-array-index-key
             <span key={i}>{ i < pin.length ? '•' : ' '}</span>

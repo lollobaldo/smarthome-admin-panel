@@ -20,7 +20,7 @@ const shake = keyframes`
 
 export const Shake = styled.div<{ playState: string }>`
   z-index: 1;
-  animation: ${shake} .5s linear;
+  animation: ${({ playState }) => (playState === 'none' ? 'none' : shake)} .5s linear;
   animation-play-state: ${({ playState }) => playState};
 `;
 

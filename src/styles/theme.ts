@@ -13,6 +13,11 @@ const sizes: MediaQuerySize = {
   desktop: '1050px',
 };
 
+export const colors = {
+  primary: '#f36b15',
+  secondary: '#2979FF',
+};
+
 export const pastelColors = {
   transparent: 'rgba(0, 0, 0, 0)',
   red: '#FF6961',
@@ -43,7 +48,7 @@ export const body = {
   `,
   dark: css`
     transition: background 0.14s ease-in, color 0.14s ease-in;
-    background: #222;
+    background: #222222;
     color: #dddddd;
   `,
 };
@@ -78,6 +83,17 @@ export const foreground = {
   `,
 };
 
+export const modal = {
+  light: css`
+    transition: background 0.14s ease-in;
+    background: ${colors.primary};
+  `,
+  dark: css`
+    transition: background 0.14s ease-in;
+    background: #222222;
+  `,
+};
+
 export const slider = {
   light: css`
     transition: background 0.14s ease-in;
@@ -90,8 +106,13 @@ export const slider = {
 };
 
 export const icon = {
+  light: css`
+    transition: filter 0.14s ease-in;
+    filter: none;
+  `,
   dark: css`
-    filteR: brightness(0) invert(1) opacity(0.86);
+    transition: filter 0.14s ease-in;
+    filter: brightness(.8);
   `,
 };
 

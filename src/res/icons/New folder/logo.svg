@@ -4,9 +4,11 @@
 
 <defs xmlns="http://www.w3.org/2000/svg">
   <linearGradient id="Gradient2" x1="0" y1="1" x2="1" y2="0">
-    <stop offset="0%" stop-color="rgb(18, 194, 233)"/>
+    <stop offset="0%" stop-color="rgb(241,39,17)"/>
+    <stop offset="100%" stop-color="rgb(245,175,25)"/>
+    <!-- <stop offset="0%" stop-color="rgb(18, 194, 233)"/>
     <stop offset="50%" stop-color="rgb(196, 113, 237)"/>
-    <stop offset="100%" stop-color="rgb(246, 79, 89)"/>
+    <stop offset="100%" stop-color="rgb(246, 79, 89)"/> -->
   </linearGradient>
 </defs>
 

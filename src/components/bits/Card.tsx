@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import theme from 'styled-theming';
 
-import { card } from 'styles/theme';
+import { card, icon } from 'styles/theme';
 
 const StyledDiv = styled.div`
   ${theme('theme', card)};
@@ -47,9 +47,10 @@ interface IconCardProps {
 
 const StyledCard = styled(Card)`
    & svg {
-     margin: auto;
-     width: 100%;
-     heigth: 100%;
+    ${theme('theme', icon)};
+    margin: auto;
+    width: 100%;
+    heigth: 100%;
    }
 `;
 
@@ -70,6 +71,7 @@ const StyledDeviceCard = styled(Card)`
 `;
 
 const StyledIcon = styled.img`
+  ${theme('theme', icon)};
   width: 80px;
 `;
 

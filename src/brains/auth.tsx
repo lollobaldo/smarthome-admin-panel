@@ -2,74 +2,88 @@ import React, { useState, useContext, createContext, useEffect } from 'react';
 
 import crypto from 'crypto';
 
+import { useLocalStorage } from 'brains/hooks';
+
 type AuthStatus = 'admin' | 'normal' | 'guest' | 'none';
 
 type Users = {
-  [hash: string]: {
-    type: AuthStatus,
-    user: string,
-  }
+  [hash: string]: UserType
 };
 
 const users: Users = {
+  empty: {
+    permissions: 'none',
+  },
+  guest: {
+    permissions: 'guest',
+  },
   '8db9264228dc48fbf47535e888c02ae0': {
-    type: 'admin',
-    user: 'Lorenzo',
+    permissions: 'admin',
+    username: 'Lorenzo',
   },
   '1fa6269f58898f0e809575c9a48747ef': {
-    type: 'guest',
-    user: 'Massi',
+    permissions: 'guest',
+    username: 'Massi',
   },
   '14db62200d8bf46551aa214accafe1df': {
-    type: 'guest',
-    user: 'Angelina',
+    permissions: 'guest',
+    username: 'Angelina',
   },
   '5d50d22735a7469266aab23fd8aeb536': {
-    type: 'normal',
-    user: 'Brombolina',
+    permissions: 'normal',
+    username: 'Brombolina',
   },
+};
+
+type UserType = {
+  permissions: AuthStatus,
+  username?: string,
 };
 
 type AuthContextType = {
-  auth: AuthStatus,
-  user?: string,
-  useAuthenticate: (pin: string) => boolean,
+  user: UserType,
+  authenticate: (pin: string) => boolean,
 };
 
 export const AuthContext = createContext<AuthContextType>({
-  auth: 'none', user: '', useAuthenticate: () => false,
+  user: users.empty, authenticate: () => false,
 });
 
 type AuthProviderProps = { children: React.ReactNode };
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [status, setStatus] = useState<AuthStatus>('none');
-  const [user, setUser] = useState<string>('');
-  console.log(status);
+  const [user, setUser] = useLocalStorage('user', users.empty);
 
-  useEffect(() => {
-    console.log(status);
-  }, [status]);
+  // const useAuthenticate = (pin: string) => {
+  //   const hash = crypto.createHash('md5').update(pin).digest('hex');
+  //   const isValidUser = Object.prototype.hasOwnProperty.call(users, hash);
+  //   useEffect(() => {
+  //     if (pin.length === 4 && isValidUser) {
+  //       console.log(`${users[hash].username} logged in as ${users[hash].permissions}`);
+  //       setUser(users[hash]);
+  //     } else if (pin.length === 4) {
+  //       console.log('Logout');
+  //       setUser(users.empty);
+  //     }
+  //   }, [isValidUser, hash, pin]);
+  //   return isValidUser;
+  // };
 
-  const useAuthenticate = (pin: string) => {
+  const authenticate = (pin: string) => {
     const hash = crypto.createHash('md5').update(pin).digest('hex');
     const isValidUser = Object.prototype.hasOwnProperty.call(users, hash);
-    useEffect(() => {
-      if (isValidUser) {
-        console.log(`${users[hash].user} logged in as ${users[hash].type}`);
-        setStatus(users[hash].type);
-        setUser(users[hash].user);
-      } else {
-        setStatus('none');
-        setUser('');
-      }
-    }, [isValidUser, hash]);
-    // console.log(user, status);
+    if (isValidUser) {
+      console.log(`${users[hash].username} logged in as ${users[hash].permissions}`);
+      setUser(users[hash]);
+    } else {
+      console.log('Logout');
+      setUser(users.empty);
+    }
     return isValidUser;
   };
 
   return (
-    <AuthContext.Provider value={{ auth: status, user, useAuthenticate }}>
+    <AuthContext.Provider value={{ user, authenticate }}>
       {children}
     </AuthContext.Provider>
   );

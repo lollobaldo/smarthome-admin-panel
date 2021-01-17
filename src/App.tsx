@@ -14,11 +14,11 @@ import { GlobalStyle } from 'styles/theme';
 import TabletScreen from 'components/bits/TabletScreen';
 
 const AppContent = () => {
-  const { auth } = useAuth();
-  console.log(auth);
+  const { permissions } = useAuth().user;
+  console.log(permissions);
   return (
     <>
-      <Screenlock lock={auth === 'none'} />
+      <Screenlock lock={permissions === 'none'} />
       <>
         <Header />
         <Content />

@@ -33,7 +33,6 @@ const StyledLabel = styled.label`
     left: 0;
     right: 0;
     bottom: 0;
-    transition: .4s;
     box-shadow: none;
   }
 
@@ -45,7 +44,7 @@ const StyledLabel = styled.label`
     left: 0.1em;
     bottom: 0.1em;
     background-color: currentColor;
-    transition: .4s;
+    transition: transform .14s ease-in;
   }
 
   input:checked + .slider {
