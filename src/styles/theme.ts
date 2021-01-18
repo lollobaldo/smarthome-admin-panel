@@ -1,5 +1,5 @@
 // import React from 'react';
-import { createGlobalStyle, css } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components/macro';
 import theme from 'styled-theming';
 
 export type DeviceType = 'mobile' | 'tablet' | 'desktop';
@@ -18,6 +18,25 @@ export const colors = {
   secondary: '#2979FF',
 };
 
+export const palettes = {
+  red: {
+    primary: '#bf2600',
+    secondary: '#ffebe6',
+  },
+  yellow: {
+    primary: '#ff8b00',
+    secondary: '#fffae6',
+  },
+  blue: {
+    primary: '#ffffff',
+    secondary: '#2979FF',
+  },
+  green: {
+    primary: '#080',
+    secondary: '#77DD77',
+  },
+};
+
 export const pastelColors = {
   transparent: 'rgba(0, 0, 0, 0)',
   red: '#FF6961',
@@ -26,7 +45,7 @@ export const pastelColors = {
   lightGreen: '#CEFC86',
   green: '#77DD77',
   lightBlue: '#A1C9F1',
-  blue: '#018AE6',
+  blue: '#2979FF',
   purple: '#c471ed',
 };
 
@@ -142,6 +161,10 @@ export const GlobalStyle = createGlobalStyle`
     border: 0;
     box-shadow: none;
     font: inherit;
+  }
+
+  .Toastify__toast-container {
+    padding: 8px !important;
   }
 `;
 
