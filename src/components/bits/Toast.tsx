@@ -1,20 +1,14 @@
 import React, { useState, useEffect, useContext, createContext } from 'react';
-import styled from 'styled-components/macro';
+import styled, { createGlobalStyle } from 'styled-components/macro';
 import theme from 'styled-theming';
 
-import { v4 as uuidv4 } from 'uuid';
+import { ToastContainer as NativeToastContainer, toast as nativeToast } from 'material-react-toastify';
+import 'material-react-toastify/dist/ReactToastify.min.css';
 
-import { mediaQuery, palettes, card } from 'styles/theme';
+import { useTheme } from 'brains/theme';
+import { mediaQuery, palettes, card, foreground } from 'styles/theme';
 
 type ToastType = 'error' | 'warn' | 'info';
-
-type Position =
-| 'bottom-left'
-| 'bottom-center'
-| 'bottom-right'
-| 'top-left'
-| 'top-center'
-| 'top-right';
 
 const typeIcons = {
   error: { icon: '✖', colors: palettes.red },
@@ -22,86 +16,46 @@ const typeIcons = {
   info: { icon: 'i', colors: palettes.blue },
 };
 
-const placements = {
-  'top-left': { top: 0, left: 0 },
-  'top-center': { top: 0, left: '50%', transform: 'translateX(-50%)' },
-  'top-right': { top: 0, right: 0 },
-  'bottom-left': { bottom: 0, left: 0 },
-  'bottom-center': { bottom: 0, left: '50%', transform: 'translateX(-50%)' },
-  'bottom-right': { bottom: 0, right: 0 },
-};
+// const StyledToastsContainer = styled.div<{ position: Position }>`
+//   ${({ position }) => placements[position]}
+//   position: absolute;
+//   display: flex;
+//   flex-direction: column;
+//   width: 100%;
+//   padding: 8px;
 
-type ToastElement = {
-  id: string,
-  message: string,
-  type: ToastType,
-};
-
-type ToastContextType = {
-  toasts: ToastElement[],
-  position: Position,
-  addToast: (message: string, type: ToastType) => void,
-  removeToast: (id: string) => void,
-};
-
-const ToastContext = createContext<ToastContextType>({
-  toasts: [], position: 'top-right', addToast: () => {}, removeToast: () => {},
-});
-
-type ToastProviderProps = { position?: Position, children: React.ReactNode };
-
-export const ToastProvider = ({ position = 'top-right', children }: ToastProviderProps) => {
-  const [toasts, setToasts] = useState<ToastElement[]>([]);
-
-  const addToast = (message: string, type: ToastType = 'info') => (
-    setToasts((ts) => [...ts, { id: uuidv4(), message, type }])
-  );
-
-  const removeToast = (id: string) => setToasts((ts) => ts.filter((x) => x.id !== id));
-
-  return (
-    <ToastContext.Provider value={{ toasts, position, addToast, removeToast }}>
-      {children}
-    </ToastContext.Provider>
-  );
-};
-
-const StyledToastsContainer = styled.div<{ position: Position }>`
-  ${({ position }) => placements[position]}
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 8px;
-
-  ${mediaQuery('tablet')} {
-    width: 360px;
-  }
-`;
+//   ${mediaQuery('tablet')} {
+//     width: 360px;
+//   }
+// `;
 
 const StyledToast = styled.div<any>`
-  ${theme('theme', card)};
+  ${theme('theme', foreground)};
   display: flex;
   max-width: 100%;
-  margin-top: 8px;
   border-radius: 10px;
   overflow: hidden;
 
   & .icon {
     background: ${({ colors }) => colors.primary};
-    color: ${({ colors }) => colors.secondary};
+    color: ${({ colors }) => colors.color || colors.secondary};
     padding: 8px;
-    width: 2em;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: xx-large;
+    font-weight: bold;
+    flex-basis: 55px;
+    flex-shrink: 0;
+    flex-grow: 0;
   }
 
   & .message {
     flex-grow: 1;
-  }
-
-  & .message, & .close {
-    background: ${({ colors }) => colors.secondary};
-    color: ${({ colors }) => colors.primary};
+    display: flex;
+    align-items: center;
+    background: ${({ isDark, colors }) => (isDark ? '#444' : colors.light)};
+    color: ${({ isDark, colors }) => (isDark ? 'inherit' : colors.primary)};
     padding: 8px;
   }
 `;
@@ -109,26 +63,57 @@ const StyledToast = styled.div<any>`
 type ToastProps = {
   type: ToastType,
   message: string,
-  onClose: () => void,
+  // onClose: () => void,
 };
 
-const Toast = ({ type, message, onClose }: ToastProps) => (
-  <StyledToast colors={typeIcons[type].colors}>
-    <div className="icon">{typeIcons[type].icon}</div>
-    <div className="message">{message}</div>
-    <button className="close" onClick={onClose} type="button">✖</button>
-  </StyledToast>
-);
+const GlobalToastifyStyle = createGlobalStyle`
+  /* Double the importance to override native style */
+  .Toastify__toast.Toastify__toast {
+    margin: 16px;
+    margin-bottom: 0;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    overflow: visible;
+    font-size: inherit;
+    line-height: inherit;
+  }
+`;
 
-export const ToastContainer = () => {
-  const { toasts, position, removeToast } = useContext(ToastContext);
+const Toast = ({ type = 'info', message }: ToastProps) => {
+  const { activeTheme } = useTheme();
   return (
-    <StyledToastsContainer position={position}>
-      {toasts.map(({ id, message, type }) => (
-        <Toast key={id} message={message} type={type} onClose={() => removeToast(id)} />
-      ))}
-    </StyledToastsContainer>
+    <StyledToast colors={typeIcons[type].colors} isDark={activeTheme === 'dark'}>
+      <div className="icon">{typeIcons[type].icon}</div>
+      <div className="message">{message}</div>
+    </StyledToast>
   );
 };
 
-export const useToasts = () => useContext(ToastContext);
+export const toast = (message: string, type: ToastType) => (
+  nativeToast(<Toast message={message} type={type} />, {
+    closeButton: false,
+    progressStyle: {
+      marginLeft: '55px',
+      width: 'calc(100% - 32px)',
+      background: typeIcons[type].colors.primary,
+    },
+  })
+);
+
+export const ToastContainer = () => (
+  <>
+    <GlobalToastifyStyle />
+    <NativeToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      draggablePercent={40}
+      pauseOnHover />
+  </>
+);

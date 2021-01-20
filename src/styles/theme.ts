@@ -21,19 +21,20 @@ export const colors = {
 export const palettes = {
   red: {
     primary: '#bf2600',
-    secondary: '#ffebe6',
+    light: '#ffebe6',
   },
   yellow: {
     primary: '#ff8b00',
-    secondary: '#fffae6',
+    light: '#fffae6',
+    dark: '#dd8800',
   },
   blue: {
-    primary: '#ffffff',
-    secondary: '#2979FF',
+    primary: '#2979ff',
+    light: '#ffffff',
   },
   green: {
-    primary: '#080',
-    secondary: '#77DD77',
+    primary: '#008800',
+    light: '#77DD77',
   },
 };
 
@@ -96,7 +97,7 @@ export const foreground = {
   `,
   dark: css`
     transition: background 0.14s ease-in, color 0.14s ease-in, box-shadow 0.14s ease-in;
-    background: #5f5f5f;
+    background: #444;
     color: #cccccc;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3), 0 2px 10px 0 rgba(0, 0, 0, 0.2);
   `,
@@ -161,10 +162,6 @@ export const GlobalStyle = createGlobalStyle`
     border: 0;
     box-shadow: none;
     font: inherit;
-  }
-
-  .Toastify__toast-container {
-    padding: 8px !important;
   }
 `;
 
