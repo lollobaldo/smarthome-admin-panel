@@ -21,9 +21,7 @@ const AppContent = () => {
   // const { addToast } = useToasts();
   useEffect(() => {
     if (permissions === 'guest') {
-      console.log('gg');
       toast('Logged in as a guest. Some features might not be available!', 'warn');
-      toast('Puzzi di cacca!', 'error');
     }
   }, [permissions]);
   return (

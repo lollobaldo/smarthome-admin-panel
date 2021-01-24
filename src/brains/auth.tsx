@@ -1,5 +1,4 @@
 import React, { useContext, createContext } from 'react';
-import { useToasts } from 'react-toast-notifications';
 import crypto from 'crypto';
 
 import { useLocalStorage } from 'brains/hooks';

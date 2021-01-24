@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, createContext } from 'react';
+import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components/macro';
 import theme from 'styled-theming';
 
@@ -6,7 +6,7 @@ import { ToastContainer as NativeToastContainer, toast as nativeToast } from 'ma
 import 'material-react-toastify/dist/ReactToastify.min.css';
 
 import { useTheme } from 'brains/theme';
-import { mediaQuery, palettes, card, foreground } from 'styles/theme';
+import { palettes, foreground } from 'styles/theme';
 
 type ToastType = 'error' | 'warn' | 'info';
 

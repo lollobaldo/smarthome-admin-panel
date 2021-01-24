@@ -16,8 +16,8 @@ const StyledScreen = styled.div<{ lock: boolean }>`
   transition: top .8s, height .8s;
   z-index: 20;
   width: 100%;
-  height: ${({ lock }: { lock: boolean }) => (lock ? '100%' : '0')};
-  /* height: 100%; */
+  /* height: ${({ lock }: { lock: boolean }) => (lock ? '100%' : '0')}; */
+  height: 100%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
