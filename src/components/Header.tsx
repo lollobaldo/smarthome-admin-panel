@@ -15,8 +15,11 @@ import iconNight from 'res/icons/night.svg';
 
 const StyledHeader = styled.header`
   ${theme('theme', card)}
+  background: linear-gradient(160deg, #ffa751, #ffa751);
+  color: #fff;
   z-index: 10;
-  height: 70px;
+  height: 180px;
+  border-radius: 0 0 20px 20px;
   display: flex;
   align-content: center;
   padding: 0 16px;
