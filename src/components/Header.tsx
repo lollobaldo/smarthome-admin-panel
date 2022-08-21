@@ -19,6 +19,7 @@ const StyledHeader = styled.header`
   color: #fff;
   z-index: 10;
   height: 180px;
+  flex-shrink: 0;
   border-radius: 0 0 20px 20px;
   display: flex;
   align-content: center;

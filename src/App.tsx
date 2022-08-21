@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
+import styled from 'styled-components/macro';
 // import { ToastContainer, toast } from 'material-react-toastify';
 // import 'material-react-toastify/dist/ReactToastify.min.css';
 
@@ -16,6 +17,13 @@ import { GlobalStyle } from 'styles/theme';
 
 import TabletScreen from 'components/bits/TabletScreen';
 
+const ContentContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  height: 100%;
+`;
+
 const AppContent = () => {
   const { permissions } = useAuth().user;
   // const { addToast } = useToasts();
@@ -25,14 +33,14 @@ const AppContent = () => {
     }
   }, [permissions]);
   return (
-    <>
+    <ContentContainer>
       <Screenlock lock={permissions === 'none'} />
       <>
         <Header />
         <Content />
       </>
       <ToastContainer />
-    </>
+    </ContentContainer>
   );
 };
 
