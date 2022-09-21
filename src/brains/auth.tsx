@@ -10,10 +10,10 @@ type Users = {
 };
 
 const users: Users = {
-  empty: {
+  'empty': {
     permissions: 'none',
   },
-  guest: {
+  'guest': {
     permissions: 'guest',
   },
   '8db9264228dc48fbf47535e888c02ae0': {
@@ -31,6 +31,10 @@ const users: Users = {
   '5d50d22735a7469266aab23fd8aeb536': {
     permissions: 'normal',
     username: 'Brombolina',
+  },
+  'f3086a19f261ac92f72997538aeec807': {
+    permissions: 'normal',
+    username: 'Zori',
   },
 };
 
