@@ -17,8 +17,8 @@ import TabletScreen from 'components/bits/TabletScreen';
 
 const ContentContainer = styled.div`
   display: flex;
-  justify-content: center;
   flex-flow: column;
+  justify-content: space-between;
   height: 100%;
 `;
 
