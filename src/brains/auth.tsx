@@ -1,12 +1,20 @@
 import React, { useContext, createContext } from 'react';
-import crypto from 'crypto';
+import MD5 from 'crypto-js/md5';
 
 import { useLocalStorage } from 'brains/hooks';
+
+import pic_me from 'res/profiles/me.jpg';
 
 type AuthStatus = 'admin' | 'normal' | 'guest' | 'none';
 
 type Users = {
   [hash: string]: UserType
+};
+
+type UserType = {
+  permissions: AuthStatus,
+  username?: string,
+  picture?: string,
 };
 
 const users: Users = {
@@ -19,6 +27,7 @@ const users: Users = {
   '8db9264228dc48fbf47535e888c02ae0': {
     permissions: 'admin',
     username: 'Lorenzo',
+    picture: pic_me,
   },
   '1fa6269f58898f0e809575c9a48747ef': {
     permissions: 'guest',
@@ -38,11 +47,6 @@ const users: Users = {
   },
 };
 
-type UserType = {
-  permissions: AuthStatus,
-  username?: string,
-};
-
 type AuthContextType = {
   user: UserType,
   authenticate: (pin: string) => boolean,
@@ -58,7 +62,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useLocalStorage('user', users.empty);
 
   const authenticate = (pin: string) => {
-    const hash = crypto.createHash('md5').update(pin).digest('hex');
+    const hash = MD5(pin).toString();
     const isValidUser = Object.prototype.hasOwnProperty.call(users, hash);
     if (isValidUser) {
       console.log(`${users[hash].username} logged in as ${users[hash].permissions}`);

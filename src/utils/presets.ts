@@ -2,15 +2,18 @@ import { ReactComponent as iconHeart } from 'res/icons/heart.svg';
 import { ReactComponent as iconMovie } from 'res/icons/movie.svg';
 import { ReactComponent as iconNight } from 'res/icons/moon.svg';
 
+
 import { pastelColors, gradients } from 'styles/theme';
+
+export type SvgComponent = React.FunctionComponent<React.SVGProps<SVGSVGElement> & {
+  title?: string | undefined;
+}>;
 
 export type Preset = {
   name: string,
   color: string,
   background: string,
-  Icon: React.FunctionComponent<React.SVGProps<SVGSVGElement> & {
-    title?: string | undefined;
-  }>,
+  Icon: SvgComponent,
 };
 
 export type PresetsState = {

@@ -1,11 +1,12 @@
 import { useState, useCallback, useEffect } from 'react';
 
-export const useOneOf = <T>(selected: T | undefined = undefined) => {
+export const useOneOf = <T>(selected: T | null = null): [T | null, (key: T) => void] => {
   const [state, setState] = useState(selected);
   const change = (key: T) => {
-    setState((s) => (key === s ? undefined : key));
+    setState((s) => (key === s ? null : key));
   };
-  return [state, useCallback(change, [])];
+  const callback = useCallback(change, []);
+  return [state, callback];
 };
 
 export const useMediaQuery = (query: string, defaultState = false) => {

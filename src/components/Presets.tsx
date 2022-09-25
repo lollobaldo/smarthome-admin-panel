@@ -5,7 +5,7 @@ import { useOneOf } from 'brains/hooks';
 
 import { Card } from 'components/bits/Card';
 
-import presets from 'utils/presets';
+import presets, { SvgComponent } from 'utils/presets';
 
 const StyledContainer = styled.div`
   padding: 16px;
@@ -22,7 +22,7 @@ const StyledCard = styled(Card)`
   & svg {
     margin: auto;
     width: 100%;
-    heigth: 100%;
+    /* heigth: 100%; */
   }
 `;
 
@@ -30,11 +30,9 @@ export type PresetCardProps = {
   name: string,
   color: string,
   background: string,
-  Icon: React.FunctionComponent<React.SVGProps<SVGSVGElement> & {
-    title?: string | undefined;
-  }>,
+  Icon: SvgComponent,
   isActive: boolean,
-  onSelect: () => {},
+  onSelect: () => void,
 };
 
 const PresetCard = ({ name, Icon, onSelect, isActive, color, background }: PresetCardProps) => (

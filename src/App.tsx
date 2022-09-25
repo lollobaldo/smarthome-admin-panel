@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import styled from 'styled-components/macro';
-// import { ToastContainer, toast } from 'material-react-toastify';
-// import 'material-react-toastify/dist/ReactToastify.min.css';
 
 import { AuthProvider, useAuth } from 'brains/auth';
 import { MqttProvider } from 'brains/mqtt';

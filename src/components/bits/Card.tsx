@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import theme from 'styled-theming';
 
@@ -50,7 +50,7 @@ const StyledCard = styled(Card)`
     ${theme('theme', icon)};
     margin: auto;
     width: 100%;
-    heigth: 100%;
+    /* heigth: 100%; */
    }
 `;
 
@@ -84,9 +84,9 @@ interface DeviceCardProps {
 }
 
 export const DeviceCard = ({ name, path, iconSrc, value, className }: DeviceCardProps) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   return (
-    <StyledDeviceCard onClick={() => path && history.push(path)} className={className}>
+    <StyledDeviceCard onClick={() => path && navigate(path)} className={className}>
       <StyledIcon src={iconSrc} />
       <h4 style={{ margin: 'auto', marginTop: '1em' }}>{name}:</h4>
       <p style={{ margin: 'auto', marginBottom: '1em' }}>{value}</p>

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useContext, createContext } from 'react';
-import { connect, MqttClient, IClientPublishOptions } from 'mqtt';
+import { connect, MqttClient, IClientPublishOptions } from 'mqtt/dist/mqtt';
 
 import { useAuth } from 'brains/auth';
 
@@ -90,7 +90,7 @@ export const useMqttSubscribe = (topic: string): string => {
   return messages[topic];
 };
 
-export const useMqttFull = (topic: string): { mqtt: MqttClient | undefined, state: string} => {
+export const useMqttFull = (topic: string): { mqtt: MqttClient | undefined, state: string } => {
   const { mqtt, messages } = useContext(MqttContext);
   useEffect(() => {
     mqtt?.subscribe(topic);

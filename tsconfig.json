@@ -22,7 +22,8 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "src",
+    "mqtt.d.ts"
   ],
   "exclude": [
     "**/*.old.ts"

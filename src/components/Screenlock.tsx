@@ -31,7 +31,7 @@ const getBorderColor = (isValidPin: boolean | undefined) => {
   return colors.secondary;
 };
 
-const KeyPad = styled.div<{ isValidPin: boolean | undefined}>`
+const KeyPad = styled.div<{ isValidPin: boolean | undefined }>`
   ${theme('theme', card)};
   width: 300px;
   height: 400px;
@@ -43,7 +43,7 @@ const KeyPad = styled.div<{ isValidPin: boolean | undefined}>`
     width: 100%;
     height: 20%;
     padding: 0 16px;
-    outline: 1px solid ${(props) => getBorderColor(props.isValidPin)};
+    outline: 1px solid ${({ isValidPin }: any) => getBorderColor(isValidPin)};
     font-size: xxx-large;
     font-weight: bold;
 
