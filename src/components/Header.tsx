@@ -4,7 +4,7 @@ import styled from 'styled-components/macro';
 import theme from 'styled-theming';
 
 import { useAuth } from 'brains/auth';
-// import { useTheme } from 'brains/theme';
+import { useTheme } from 'brains/theme';
 // import { path2title } from 'utils/state';
 
 import Burger from 'components/bits/Burger';
@@ -20,15 +20,15 @@ const StyledHeader = styled.header`
   /* background: linear-gradient(160deg, #ffa751, #ffa751); */
   color: #000;
   z-index: 10;
-  /* height: 180px; */
+  height: 108px;
   flex-shrink: 0;
   border-radius: 0 0 20px 20px;
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   /* height: 96px; */
   align-items: center;
   justify-content: space-between;
-  padding: 16px;
+  padding: 24px;
 
 
   ${mediaQuery('tablet')} {
@@ -50,11 +50,11 @@ const StyledHeader = styled.header`
 //   }
 // `;
 
-// const NightModeButton = styled.button`
-//   width: 2.5em;
-//   padding: 0;
-//   filter: drop-shadow(1px 1px 2px #aaa);
-// `;
+const NightModeButton = styled.button`
+  /* width: 2.5em; */
+  padding: 0;
+  /* filter: drop-shadow(1px 1px 2px #aaa); */
+`;
 
 const Logo = styled.img`
   height: 48px;
@@ -63,27 +63,34 @@ const Logo = styled.img`
 `;
 
 const ProfilePic = styled.img`
-  height: 48px;
+  height: 60px;
   border-radius: 10px;
   filter: drop-shadow(0px 1px 2px #aaa);
 `;
 
-const HelloMsg = styled.div`
-  padding-left: 16px;
+// const themeIcons = { light: iconDay, dark: iconNight };
+
+const StyledHelloMsg = styled.div`
+  padding-left: 20px;
   flex-basis: 100%;
 
-  & h1 {
-
+  & h1, & p {
+    margin: 0;
   };
 `;
 
-// const themeIcons = { light: iconDay, dark: iconNight };
+const HelloMsg = ({ username }: { username?: string }) => (
+  <StyledHelloMsg>
+    <h1>{`Hi, ${username || 'user'}!`}</h1>
+    <p>Welcome home.</p>
+  </StyledHelloMsg>
+);
 
 const Header = () => {
   // const { pathname } = useLocation();
   const { username, picture } = useAuth().user;
   console.log(picture);
-  /* const { activeTheme, toggleTheme } = useTheme(); */
+  const { activeTheme, toggleTheme } = useTheme();
   return (
     <StyledHeader>
       {/* {pathname !== '/' ? (
@@ -95,14 +102,13 @@ const Header = () => {
           <img src={iconLeft} alt="" />
         </BackLink>
       )} */}
+      <NightModeButton onClick={toggleTheme}>
+        <ProfilePic src={picture} alt={`${username}s picture`} />
+      </NightModeButton>
+      <HelloMsg username={username} />
+      {/* <Logo src={logo} alt="App Logo" /> */}
       <Burger />
-      <Logo src={logo} alt="App Logo" />
-      <ProfilePic src={picture} alt={`${username}s picture`} />
-      <HelloMsg>
-        <h1>{`Hello, ${username}!`}</h1>
-        <p>Welcome home.</p>
-      </HelloMsg>
-    </StyledHeader>
+      </StyledHeader>
   );
 };
 

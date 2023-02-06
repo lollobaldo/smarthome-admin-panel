@@ -1,4 +1,5 @@
 import { ReactComponent as iconHeart } from 'res/icons/heart.svg';
+import { ReactComponent as iconBook } from 'res/icons/book2.svg';
 import { ReactComponent as iconMovie } from 'res/icons/movie.svg';
 import { ReactComponent as iconNight } from 'res/icons/moon.svg';
 
@@ -27,6 +28,11 @@ const presets: Preset[] = [
     color: pastelColors.red,
     background: gradients.red,
     Icon: iconHeart,
+  }, {
+    name: 'reading',
+    color: pastelColors.orange,
+    background: gradients.orange,
+    Icon: iconBook,
   }, {
     name: 'movie',
     color: pastelColors.purple,

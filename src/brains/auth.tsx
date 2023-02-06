@@ -21,29 +21,34 @@ const users: Users = {
   'empty': {
     permissions: 'none',
   },
-  'guest': {
+  [process.env.REACT_APP_ACCESS_CODE_Guest!]: {
     permissions: 'guest',
+    username: 'guest',
   },
-  '8db9264228dc48fbf47535e888c02ae0': {
+  [process.env.REACT_APP_ACCESS_CODE_Me!]: {
     permissions: 'admin',
     username: 'Lorenzo',
     picture: pic_me,
   },
-  '1fa6269f58898f0e809575c9a48747ef': {
+  [process.env.REACT_APP_ACCESS_CODE_Massi!]: {
     permissions: 'guest',
     username: 'Massi',
   },
-  '14db62200d8bf46551aa214accafe1df': {
-    permissions: 'guest',
-    username: 'Angelina',
-  },
-  '5d50d22735a7469266aab23fd8aeb536': {
+  [process.env.REACT_APP_ACCESS_CODE_Brombolina!]: {
     permissions: 'normal',
     username: 'Brombolina',
   },
-  'f3086a19f261ac92f72997538aeec807': {
+  [process.env.REACT_APP_ACCESS_CODE_Zori!]: {
     permissions: 'normal',
     username: 'Zori',
+  },
+  [process.env.REACT_APP_ACCESS_CODE_Ramzy!]: {
+    permissions: 'normal',
+    username: 'Ramzy',
+  },
+  [process.env.REACT_APP_ACCESS_CODE_Apurv!]: {
+    permissions: 'normal',
+    username: 'Apurv',
   },
 };
 

@@ -17,7 +17,9 @@ const StyledDiv = styled.div`
 `;
 
 const StyledCard = styled(Card)`
-  margin: 0;
+  margin: 8px;
+  height: auto;
+  border-radius: 100%;
 
   & svg {
     margin: auto;

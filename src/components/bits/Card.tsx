@@ -10,11 +10,12 @@ const StyledDiv = styled.div`
   margin: auto;
   width: 100px;
   height: 100px;
-  border-radius: 20%;
+  border-radius: 20px;
   padding: 10px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
 
   &:hover {
     box-shadow: 0 4px 6px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.15);

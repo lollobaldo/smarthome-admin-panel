@@ -1,17 +1,9 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import Presets from 'components/Presets';
-import Devices from 'components/Devices';
+import Home from 'components/Home';
 import Lights from 'components/Lights';
 import Leds from 'components/Leds';
-
-const Home = () => (
-  <>
-    <Presets />
-    <Devices />
-  </>
-);
 
 const Content = () => (
   <Routes>

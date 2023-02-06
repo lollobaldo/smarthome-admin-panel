@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'components/bits/Toast';
 
 import Screenlock from 'components/Screenlock';
 import Header from 'components/Header';
+import Footer from 'components/Footer';
 import Content from 'components/Content';
 
 import { GlobalStyle } from 'styles/theme';
@@ -20,6 +21,7 @@ const ContentContainer = styled.div`
   flex-flow: column;
   justify-content: space-between;
   height: 100%;
+  overflow-y: hidden;
 `;
 
 const AppContent = () => {
@@ -36,8 +38,8 @@ const AppContent = () => {
       <>
         <Header />
         <Content />
+        <Footer />
       </>
-      <ToastContainer />
     </ContentContainer>
   );
 };
@@ -51,6 +53,7 @@ const App = () => (
           <GlobalStyle />
           <TabletScreen>
             <AppContent />
+            <ToastContainer />
           </TabletScreen>
         </ThemeProvider>
       </Router>

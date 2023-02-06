@@ -52,6 +52,7 @@ export const pastelColors = {
 
 export const gradients = {
   red: 'linear-gradient(45deg, #ff416c, #f45c43)',
+  orange: 'linear-gradient(45deg, #fdc830, #f37335)',
   purple: 'linear-gradient(45deg, #12c2e9, #c471ed, #f64f59)',
   black: 'linear-gradient(45deg, #232526, #414345)',
 };
@@ -62,26 +63,40 @@ export const mediaQuery = (key: DeviceType) => (
 
 export const body = {
   light: css`
-    transition: background 0.14s ease-in, color 0.14s ease-in;
     background: #f5f5f5;
     color: #000000;
   `,
   dark: css`
-    transition: background 0.14s ease-in, color 0.14s ease-in;
     background: #222222;
+    color: #dddddd;
+  `,
+};
+
+export const primaryText = {
+  light: css`
+    color: #000000;
+  `,
+  dark: css`
+    color: #dddddd;
+  `,
+};
+
+export const secondaryText = {
+  light: css`
+    color: #000000;
+  `,
+  dark: css`
     color: #dddddd;
   `,
 };
 
 export const card = {
   light: css`
-    transition: background 0.14s ease-in, color 0.14s ease-in, box-shadow 0.14s ease-in;
     background: #ffffff;
     color: #000000;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   `,
   dark: css`
-    transition: background 0.14s ease-in, color 0.14s ease-in, box-shadow 0.14s ease-in;
     background: #333;
     color: #dddddd;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3), 0 2px 10px 0 rgba(0, 0, 0, 0.2);
@@ -90,13 +105,11 @@ export const card = {
 
 export const foreground = {
   light: css`
-    transition: background 0.14s ease-in, color 0.14s ease-in, box-shadow 0.14s ease-in;
     background: #cccccc;
     color: #ffffff;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   `,
   dark: css`
-    transition: background 0.14s ease-in, color 0.14s ease-in, box-shadow 0.14s ease-in;
     background: #444;
     color: #cccccc;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3), 0 2px 10px 0 rgba(0, 0, 0, 0.2);
@@ -105,33 +118,27 @@ export const foreground = {
 
 export const modal = {
   light: css`
-    transition: background 0.14s ease-in;
     background: ${colors.primary};
   `,
   dark: css`
-    transition: background 0.14s ease-in;
     background: #222222;
   `,
 };
 
 export const slider = {
   light: css`
-    transition: background 0.14s ease-in;
     background: #ffffff;
   `,
   dark: css`
-    transition: background 0.14s ease-in;
     background: #5f5f5f;
   `,
 };
 
 export const icon = {
   light: css`
-    transition: filter 0.14s ease-in;
     filter: none;
   `,
   dark: css`
-    transition: filter 0.14s ease-in;
     filter: brightness(.8);
   `,
 };
@@ -140,6 +147,7 @@ export const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
+    transition: 0.14s ease-in;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -163,11 +171,6 @@ export const GlobalStyle = createGlobalStyle`
     box-shadow: none;
     font: inherit;
   }
-`;
-
-// and this theme is fully typed as well
-export const cssHelper = css`
-  border: 1px solid ${(props) => props.theme.borderRadius};
 `;
 
 // export default { myTheme };
