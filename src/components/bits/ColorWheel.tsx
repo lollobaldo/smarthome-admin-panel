@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable react/jsx-no-duplicate-props */
 import React, { useState } from 'react';
-import { animated } from 'react-spring';
+import { animated } from '@react-spring/web';
 import tinycolor from 'tinycolor2';
 
 const defaultColors = [

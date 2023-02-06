@@ -18,7 +18,7 @@ type UserType = {
 };
 
 const users: Users = {
-  'empty': {
+  empty: {
     permissions: 'none',
   },
   [process.env.REACT_APP_ACCESS_CODE_Guest!]: {

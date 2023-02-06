@@ -5,7 +5,7 @@ import styled from 'styled-components/macro';
 import { AuthProvider, useAuth } from 'brains/auth';
 import { MqttProvider } from 'brains/mqtt';
 import { ThemeProvider } from 'brains/theme';
-import { ToastContainer, toast } from 'components/bits/Toast';
+// import { ToastContainer, toast } from 'components/bits/Toast';
 
 import Screenlock from 'components/Screenlock';
 import Header from 'components/Header';
@@ -29,7 +29,7 @@ const AppContent = () => {
   // const { addToast } = useToasts();
   useEffect(() => {
     if (permissions === 'guest') {
-      toast('Logged in as a guest. Some features might not be available!', 'warn');
+      // toast('Logged in as a guest. Some features might not be available!', 'warn');
     }
   }, [permissions]);
   return (
@@ -53,7 +53,7 @@ const App = () => (
           <GlobalStyle />
           <TabletScreen>
             <AppContent />
-            <ToastContainer />
+            {/* <ToastContainer /> */}
           </TabletScreen>
         </ThemeProvider>
       </Router>
