@@ -12,6 +12,7 @@ const Container = styled(Widget)`
   flex-grow: 1;
 `;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const PlantSensorChart = ({ id }: { id: string }) => {
   const humidityData = useSensor('humidity');
   const temperatureData = useSensor('temperature');
