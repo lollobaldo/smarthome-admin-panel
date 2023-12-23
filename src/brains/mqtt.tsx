@@ -128,5 +128,5 @@ export const useMqttCallback = (topicRegex: string, callbackFn: MqttCallbackFn) 
   useEffect(() => {
     addCallback(topicRegex, callbackFn);
     mqtt?.subscribe(topicRegex);
-  }, [mqtt, topicRegex]);
+  }, [mqtt, topicRegex]); // eslint-disable-line react-hooks/exhaustive-deps
 };

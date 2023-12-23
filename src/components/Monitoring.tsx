@@ -32,7 +32,7 @@ const Monitoring = () => {
       {Object.entries(logsByDay).map(([day, logLines], i) => (
         <>
           <p key={i}>{day}</p>,
-          {logLines.map(({ time, device, level, module, message }, ii) => (
+          {logLines.map(({ device, level, module, message }, ii) => (
             <StyledRow key={ii} data-module={module} style={{ color: logLevel2Color(level) }}>
               <span>{device}</span>
               <span>{message}</span>
