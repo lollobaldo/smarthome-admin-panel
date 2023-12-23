@@ -7,7 +7,7 @@ type PlantApi = {
 
 export type Id = { id: string };
 export type Name = { name: string };
-export type PlantInfo = {
+export type PlantInfo = Name & {
   species: string,
   description: string,
   dob: Date,
@@ -15,7 +15,7 @@ export type PlantInfo = {
   group?: string,
 };
 
-type Telemetry = {
+export type Telemetry = {
   last_watering?: Date,
   temperature?: number,
   humidity?: number,
@@ -25,7 +25,7 @@ type GroupState = Id & Name & Telemetry & {
   plants: string[],
 };
 
-export type PlantState = Id & Name & PlantInfo & Telemetry;
+export type PlantState = Id & PlantInfo & Telemetry;
 
 export type PlantsState = {
   groups: {

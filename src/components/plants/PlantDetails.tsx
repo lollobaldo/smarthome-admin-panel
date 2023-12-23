@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import { PlantState } from 'brains/devices/usePlants';
+import { PlantState, PlantInfo } from 'brains/devices/usePlants';
 
 import PlantSensorChart from './PlantSensorChart';
 
@@ -29,6 +29,19 @@ const DetailsText = styled.div`
   align-content: space-evenly;
 `;
 
+const Details = ({ name, species, dob, driveId }: PlantInfo) => (
+  <StyledDetailCard>
+    <DriveImg driveId={driveId} alt={name} />
+    <DetailsText>
+      <div>
+        <h1>{name}</h1>
+        <p>{species}</p>
+      </div>
+      <p>DOB: {dob.toLocaleDateString()}</p>
+    </DetailsText>
+  </StyledDetailCard>
+);
+
 const StyledPlantDetails = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -39,7 +52,6 @@ const StyledPlantDetails = styled.div`
     max-width: 128px;
     max-height: 128px;
     flex-shrink: 0;
-    /* flex: 0 0 100%; */
   }
   & h4 {
     text-align: center;
@@ -47,22 +59,10 @@ const StyledPlantDetails = styled.div`
   }
 `;
 
-const PlantDetails = ({ id, name, species, description, dob, driveId }: PlantState) => (
+const PlantDetails = ({ id, ...plantDetails }: PlantState) => (
   <StyledPlantDetails>
-    <StyledDetailCard>
-      <DriveImg driveId={driveId} alt={name} />
-      <DetailsText>
-        <div>
-          <h1>{name}</h1>
-          <p>{species}</p>
-        </div>
-        <p>{dob.toLocaleDateString()}</p>
-        <p>{description}</p>
-      </DetailsText>
-    </StyledDetailCard>
-    {/* <div> */}
+    <Details {...plantDetails} />
     <PlantSensorChart id={id} />
-    {/* </div> */}
   </StyledPlantDetails>
 );
 
