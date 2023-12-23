@@ -17,7 +17,6 @@ export const FansCard = () => {
 };
 
 const Fans = () => {
-  console.log('');
   return (
     <div />
   );

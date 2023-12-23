@@ -16,7 +16,6 @@ export const HeaterCard = () => {
 };
 
 const Heater = () => {
-  console.log('');
   return (
     <div />
   );

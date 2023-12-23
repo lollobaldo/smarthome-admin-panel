@@ -1,10 +1,33 @@
 import React from 'react';
+import styled from 'styled-components/macro';
+import theme from 'styled-theming';
+
+import { mediaQuery, card } from 'styles/theme';
+
+const StyledSidebar = styled.div`
+  grid-area: sidebar;
+  height: 100%;
+  display: none; // override to flex for tablets and above
+  min-width: 200px;
+
+  ${mediaQuery('tablet')} {
+    display: flex;
+  };
+`;
+
+const SidebarHeader = () => {
+  return (
+    <p>header</p>
+  );
+};
 
 const Sidebar = () => {
   console.log('Entry point');
 
   return (
-    <p>header</p>
+    <StyledSidebar>
+      <SidebarHeader />
+    </StyledSidebar>
   );
 };
 

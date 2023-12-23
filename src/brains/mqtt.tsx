@@ -2,10 +2,11 @@ import React, { useState, useRef, useEffect, useContext, createContext } from 'r
 import { connect, MqttClient, IClientPublishOptions } from 'mqtt/dist/mqtt';
 
 import { useAuth } from 'brains/auth';
+import { isTopicMatch } from 'brains/utils';
 
 const mqttServer = 'mqtts://mqtt.flespi.io';
 const mqttOptions = {
-  username: process.env.REACT_APP_MQTT_USER,
+  username: process.env.REACT_APP_MQTT_USER, // TODO: fetch from auth endpoint
   port: 443,
 };
 
@@ -13,28 +14,46 @@ const generateClientId = () => `SAP2--${Date.now().toString(36)}`;
 
 type MqttStatus = 'connected' | 'reconnecting' | 'closed' | 'offline' | 'disconnected' | 'error';
 
+type Messages = {
+  [topic: string]: string,
+};
+
+type MqttCallbackFn = (topic: string, message: string) => void;
+
 type MqttContextType = {
   mqtt: MqttClient | undefined,
   status: MqttStatus,
-  messages: {
-    [topic: string]: string,
-  },
+  messages: Messages,
+  addCallback: (topic: string, callback: MqttCallbackFn) => void,
 };
 
 const MqttContext = createContext<MqttContextType>({
-  mqtt: undefined, status: 'disconnected', messages: {},
+  mqtt: undefined, status: 'disconnected', messages: {}, addCallback: () => {},
 });
 
 type MqttProviderProps = { children: React.ReactNode };
 
 export const MqttProvider = ({ children }: MqttProviderProps) => {
   const [status, setStatus] = useState<MqttStatus>('disconnected');
-  const [messages, setMessages] = useState({});
-  const { permissions } = useAuth().user;
+  const callbacks = useRef<{ [id: string]: MqttCallbackFn[] }>({});
+  const [messages, setMessages] = useState<Messages>({});
+  const { permissions } = useAuth().auth.user;
 
   const client = useRef<MqttClient>();
 
+  const addCallback = (subscription: string, callback: MqttCallbackFn) => {
+    const cbs = callbacks.current[subscription] ?? [];
+    cbs.push(callback);
+    callbacks.current[subscription] = [...new Set(cbs)];
+    Object.entries(messages).forEach(([topic, message]) => {
+      if (isTopicMatch(subscription, topic)) {
+        callback(topic, message);
+      }
+    });
+  };
+
   useEffect(() => {
+    console.log(permissions);
     if (permissions === 'none' || permissions === 'guest') {
       return () => {};
     }
@@ -55,9 +74,15 @@ export const MqttProvider = ({ children }: MqttProviderProps) => {
       setStatus('error');
     });
 
-    mqttInstance.on('message', (topic, message) => {
+    mqttInstance.on('message', (topic, messageBuffer) => {
+      const message = messageBuffer.toString();
       console.log(`Message in topic[${topic}]: ${message}`);
       setMessages((m) => ({ ...m, [topic]: message.toString() }));
+      Object.entries(callbacks.current).forEach(([subscription, callbackFn]) => {
+        if (isTopicMatch(subscription, topic)) {
+          callbackFn.forEach(fn => fn(topic, message));
+        }
+      });
     });
 
     return () => {
@@ -66,7 +91,7 @@ export const MqttProvider = ({ children }: MqttProviderProps) => {
   }, [permissions]);
 
   return (
-    <MqttContext.Provider value={{ mqtt: client.current, status, messages }}>
+    <MqttContext.Provider value={{ mqtt: client.current, status, messages, addCallback }}>
       {children}
     </MqttContext.Provider>
   );
@@ -96,4 +121,12 @@ export const useMqttFull = (topic: string): { mqtt: MqttClient | undefined, stat
     mqtt?.subscribe(topic);
   }, [mqtt, topic]);
   return { mqtt, state: messages[topic] };
+};
+
+export const useMqttCallback = (topicRegex: string, callbackFn: MqttCallbackFn) => {
+  const { mqtt, addCallback } = useContext(MqttContext);
+  useEffect(() => {
+    addCallback(topicRegex, callbackFn);
+    mqtt?.subscribe(topicRegex);
+  }, [mqtt, topicRegex]);
 };

@@ -70,19 +70,20 @@ const Screenlock = ({ lock }: { lock: boolean }) => {
   const { authenticate } = useAuth();
 
   useEffect(() => {
-    if (pin.length === pinLength) {
-      setIsValidPin(authenticate(pin));
+    async function fetchData() {
+      if (pin.length === pinLength) {
+        setIsValidPin(await authenticate(pin));
+      }
     }
-  }, [pin, authenticate]);
+    fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pin]);
 
   const resetAll = () => {
     reset();
     setIsValidPin(undefined);
   };
 
-  // const isValidPin = useAuthenticate(pin);
-  // const isInvalid = pin.length === 4 && !isValidPin;
-  // if (isValidPin) { console.log(pin); }
   return (
     <StyledScreen lock={lock}>
       <KeyPad isValidPin={isValidPin}>

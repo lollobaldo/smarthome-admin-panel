@@ -1,58 +1,79 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
-import theme from 'styled-theming';
 
-import { slider } from 'styles/theme';
-
-const StyledInput = styled.input`
+const StyledInput = styled.input<any>`
   & * {
-    // Needed to avoid blue box on click
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent; // Avoid blue box on click
   }
 
   margin: auto;
-  -webkit-appearance: none;
-  position: relative;
-  overflow: hidden;
-  height: 80px;
-  width: 200px;
+  appearance: none;
+  background: none;
+  display: flex;
+  align-items: center;
   cursor: pointer;
-  border-radius: 20px;
-  transform: rotate(-90deg);
+  filter: drop-shadow(0 0 5px #555);
 
   &::-webkit-slider-container {
-    ${theme('theme', slider)};
+    height: 60%;
+    border-radius: 100vh;
   }
 
   &::-webkit-slider-runnable-track {
-    /* background: #ddd; */
+    height: 100%;
+    background: var(--track-color);
+    border-radius: 100vh;
+    overflow: hidden;
   }
 
   &::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 0px;
-  height: 40px;
-  background: #fff;
-  box-shadow: -100vw 0 0 100vw ${({ color = 'dodgerblue' }) => (color)};;
-}
+    appearance: none;
+    width: 0px;
+    outline: none;
+    box-shadow: -100vw 0 0 100vw var(--progress-color);
+  }
 `;
 
-type SliderProps = {
+type SliderProps = Omit<React.ComponentProps<'input'>, 'value' | 'onChange' | 'min' | 'max'> & {
   value: number,
   onChange: (value: number) => void,
-  color?: string,
-  className?: string,
+  gradient: string[],
+  value2color: (value: number) => string,
+  min?: number,
+  max?: number,
+  progressColor?: string,
+  trackColor?: string,
 };
 
-const Slider = ({ value, onChange, color, className }: SliderProps) => (
-  <StyledInput
-    type="range"
-    min="0"
-    max="255"
-    color={color}
-    value={value}
-    onChange={(e) => onChange(Number(e.target.value))}
-    className={className} />
-);
+const Slider = ({ value, onChange, min = 0, max = 100, style, ...props }: SliderProps) => {
+  const sign = min <= max ? 1 : -1;
+  const scale = (normalised: number) => {
+    return sign * normalised * (max - min) + min;
+  };
+  const scaleInv = (scaled: number) => {
+    return sign * scaled / (max - min);
+  };
+  
+  const [v, setV] = useState(scaleInv(value));
+  
+  const onChangeCallback = (newValue: number): void => {
+    setV(newValue);
+    onChange(scale(newValue));
+  };
+
+  const { progressColor, trackColor } = props;
+
+  return (
+    <StyledInput
+      type="range"
+      value={v}
+      min={0}
+      max={1}
+      step={0.01}
+      onChange={(e: any) => onChangeCallback(Number(e.target.value))}
+      style={{ '--progress-color': progressColor, '--track-color': trackColor, ...style }}
+      {...props} />
+  );
+};
 
 export default Slider;

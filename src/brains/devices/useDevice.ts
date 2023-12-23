@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { useMqttFull } from 'brains/mqtt';
+import { useMqttFull, useMqttCallback } from 'brains/mqtt';
 
 type UseDeviceProps<T> = {
   topic: string,

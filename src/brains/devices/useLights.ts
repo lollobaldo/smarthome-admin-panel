@@ -9,6 +9,7 @@ type LightsState = {
 type LightsApi = {
   state: LightsState,
   setBrightness: (brightness: number) => void,
+  setTemperature: (temperature: number) => void,
   toggleLight: () => void,
 };
 
@@ -37,11 +38,15 @@ const useLights = (topic: string = 'lights/bulbs'): LightsApi => {
     setState((lightState) => ({ ...lightState, state: !lightState?.state }));
   };
 
-  const setBrightness = (b: number) => {
-    setState((lightState) => ({ ...lightState, brightness: b }));
+  const setBrightness = (brightness: number) => {
+    setState((lightState) => ({ ...lightState, brightness: Math.round(brightness) }));
   };
 
-  return { state, setBrightness, toggleLight };
+  const setTemperature = (temperature: number) => {
+    setState((lightState) => ({ ...lightState, temperature: Math.round(temperature) }));
+  };
+
+  return { state, setBrightness, setTemperature, toggleLight };
 };
 
 export default useLights;

@@ -1,5 +1,5 @@
-import { useState, useCallback, useEffect } from 'react';
-
+import { useState, useCallback, useEffect, useRef } from 'react';
+ 
 export const useOneOf = <T>(selected: T | null = null): [T | null, (key: T) => void] => {
   const [state, setState] = useState(selected);
   const change = (key: T) => {
@@ -20,12 +20,12 @@ export const useMediaQuery = (query: string, defaultState = false) => {
       setState(!!mql.matches);
     };
 
-    mql.addListener(onChange);
-    setState(mql.matches);
+    onChange();
+    mql.addEventListener('change', onChange);
 
     return () => {
       mounted = false;
-      mql.removeListener(onChange);
+      mql.removeEventListener('change', onChange);
     };
   }, [query]);
 
@@ -43,7 +43,7 @@ export const usePin = () => {
 };
 
 // Hook
-export const useLocalStorage = <T>(key: string, initialValue: T) => {
+export const useLocalStorage = <T>(key: string, initialValue: T): [T, (value: T) => void] => {
   // State to store our value
   // Pass initial state function to useState so logic is only executed once
   const [storedValue, setStoredValue] = useState(() => {
@@ -75,4 +75,62 @@ export const useLocalStorage = <T>(key: string, initialValue: T) => {
     }
   };
   return [storedValue, setValue];
+};
+
+// eslint-disable-next-line @typescript-eslint/default-param-last
+export const useThrottle = <T>(value: T, ms: number = 200) => {
+  const [state, setState] = useState<T>(value);
+  const timeout = useRef<ReturnType<typeof setTimeout>>();
+  const nextValue = useRef(null) as any;
+  const hasNextValue = useRef(0) as any;
+
+  useEffect(() => {
+    if (!timeout.current) {
+      setState(value);
+      const timeoutCallback = () => {
+        if (hasNextValue.current) {
+          hasNextValue.current = false;
+          setState(nextValue.current);
+          timeout.current = setTimeout(timeoutCallback, ms);
+        } else {
+          timeout.current = undefined;
+        }
+      };
+      timeout.current = setTimeout(timeoutCallback, ms);
+    } else {
+      nextValue.current = value;
+      hasNextValue.current = true;
+    }
+  }, [value]);
+
+  return state;
+};
+
+export const useThrottledSetter = <T>(initialValue: T, setter: (value: T) => void, ms: number = 200): [T, (v: T) => void] => {
+  const [value, setValueUnder] = useState<T>(initialValue);
+  const timeout = useRef<ReturnType<typeof setTimeout>>();
+  const nextValue = useRef(null) as any;
+  const hasNextValue = useRef(0) as any;
+
+  const setValue = (v: T) => {
+    setValueUnder(v);
+    if (!timeout.current) {
+      setter(v);
+      const timeoutCallback = () => {
+        if (hasNextValue.current) {
+          hasNextValue.current = false;
+          setter(nextValue.current);
+          timeout.current = setTimeout(timeoutCallback, ms);
+        } else {
+          timeout.current = undefined;
+        }
+      };
+      timeout.current = setTimeout(timeoutCallback, ms);
+    } else {
+      nextValue.current = v;
+      hasNextValue.current = true;
+    }
+  };
+
+  return [value, setValue];
 };

@@ -9,23 +9,41 @@ import { ThemeProvider } from 'brains/theme';
 
 import Screenlock from 'components/Screenlock';
 import Header from 'components/Header';
+import Sidebar from 'components/Sidebar';
 import Footer from 'components/Footer';
 import Content from 'components/Content';
 
-import { GlobalStyle } from 'styles/theme';
+import { GlobalStyle, mediaQuery } from 'styles/theme';
 
 import TabletScreen from 'components/bits/TabletScreen';
 
-const ContentContainer = styled.div`
-  display: flex;
+const AppContainer = styled.div`
+  /* display: flex;
   flex-flow: column;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: space-between; */
   height: 100%;
   overflow-y: hidden;
+
+  display: grid;
+  justify-items: stretch;
+  grid-template-columns: 200px auto;
+  grid-template-rows: 108px auto 56px;
+  grid-template-areas: 
+    "header header"
+    "content content"
+    "footer footer";
+
+  ${mediaQuery('tablet')} {
+    grid-template-areas: 
+      "sidebar content"
+      "sidebar content"
+      "sidebar footer";
+  };
 `;
 
 const AppContent = () => {
-  const { permissions } = useAuth().user;
+  const { permissions } = useAuth().auth.user;
   // const { addToast } = useToasts();
   useEffect(() => {
     if (permissions === 'guest') {
@@ -33,14 +51,15 @@ const AppContent = () => {
     }
   }, [permissions]);
   return (
-    <ContentContainer>
+    <AppContainer>
       <Screenlock lock={permissions === 'none'} />
       <>
+        <Sidebar />
         <Header />
         <Content />
         <Footer />
       </>
-    </ContentContainer>
+    </AppContainer>
   );
 };
 

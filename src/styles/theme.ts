@@ -16,6 +16,12 @@ const sizes: MediaQuerySize = {
 export const colors = {
   primary: '#f36b15',
   secondary: '#2979FF',
+  grey: '#888',
+};
+
+export const headerBackground = {
+  light: '#f36b15',
+  dark: '#333',
 };
 
 export const palettes = {
@@ -64,54 +70,54 @@ export const mediaQuery = (key: DeviceType) => (
 export const body = {
   light: css`
     background: #f5f5f5;
-    color: #000000;
+    color: #333;
   `,
   dark: css`
-    background: #222222;
-    color: #dddddd;
+    background: #222;
+    color: #ddd;
   `,
 };
 
 export const primaryText = {
   light: css`
-    color: #000000;
+    color: #333;
   `,
   dark: css`
-    color: #dddddd;
+    color: #ddd;
   `,
 };
 
 export const secondaryText = {
   light: css`
-    color: #000000;
+    color: #333;
   `,
   dark: css`
-    color: #dddddd;
+    color: #ddd;
   `,
 };
 
 export const card = {
   light: css`
-    background: #ffffff;
-    color: #000000;
+    background: #fff;
+    color: #333;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   `,
   dark: css`
     background: #333;
-    color: #dddddd;
+    color: #ddd;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3), 0 2px 10px 0 rgba(0, 0, 0, 0.2);
   `,
 };
 
 export const foreground = {
   light: css`
-    background: #cccccc;
-    color: #ffffff;
+    background: #ccc;
+    color: #fff;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   `,
   dark: css`
     background: #444;
-    color: #cccccc;
+    color: #ccc;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3), 0 2px 10px 0 rgba(0, 0, 0, 0.2);
   `,
 };
@@ -121,13 +127,13 @@ export const modal = {
     background: ${colors.primary};
   `,
   dark: css`
-    background: #222222;
+    background: #222;
   `,
 };
 
 export const slider = {
   light: css`
-    background: #ffffff;
+    background: #fff;
   `,
   dark: css`
     background: #5f5f5f;

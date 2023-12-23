@@ -5,82 +5,74 @@ import { useLocalStorage } from 'brains/hooks';
 
 import pic_me from 'res/profiles/me.jpg';
 
-type AuthStatus = 'admin' | 'normal' | 'guest' | 'none';
+const AUTH_URL = '.netlify/functions/auth';
 
-type Users = {
-  [hash: string]: UserType
+const profilePics: { [username: string]: string } = {
+  Lorenzo: pic_me,
 };
+
+type AuthStatus = 'admin' | 'normal' | 'guest' | 'none';
 
 type UserType = {
   permissions: AuthStatus,
-  username?: string,
+  username: string,
   picture?: string,
 };
 
-const users: Users = {
-  empty: {
-    permissions: 'none',
-  },
-  [process.env.REACT_APP_ACCESS_CODE_Guest!]: {
-    permissions: 'guest',
-    username: 'guest',
-  },
-  [process.env.REACT_APP_ACCESS_CODE_Me!]: {
-    permissions: 'admin',
-    username: 'Lorenzo',
-    picture: pic_me,
-  },
-  [process.env.REACT_APP_ACCESS_CODE_Massi!]: {
-    permissions: 'guest',
-    username: 'Massi',
-  },
-  [process.env.REACT_APP_ACCESS_CODE_Brombolina!]: {
-    permissions: 'normal',
-    username: 'Brombolina',
-  },
-  [process.env.REACT_APP_ACCESS_CODE_Zori!]: {
-    permissions: 'normal',
-    username: 'Zori',
-  },
-  [process.env.REACT_APP_ACCESS_CODE_Ramzy!]: {
-    permissions: 'normal',
-    username: 'Ramzy',
-  },
-  [process.env.REACT_APP_ACCESS_CODE_Apurv!]: {
-    permissions: 'normal',
-    username: 'Apurv',
-  },
+type Tokens = {
+  mqtt: string,
+  influxDb: string,
+};
+
+type AuthInfo = {
+  user: UserType,
+  tokens: Tokens,
 };
 
 type AuthContextType = {
-  user: UserType,
-  authenticate: (pin: string) => boolean,
+  auth: AuthInfo,
+  authenticate: (pin: string) => Promise<boolean>,
+};
+
+const emptyAuth: AuthInfo = {
+  user: {
+    permissions: 'none',
+    username: 'Guest',
+  },
+  tokens: { mqtt: '', influxDb: '' },
 };
 
 export const AuthContext = createContext<AuthContextType>({
-  user: users.empty, authenticate: () => false,
+  auth: emptyAuth, authenticate: async () => false,
 });
 
 type AuthProviderProps = { children: React.ReactNode };
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useLocalStorage('user', users.empty);
+  const [auth, setAuth] = useLocalStorage('auth', emptyAuth);
 
-  const authenticate = (pin: string) => {
+  const authenticate = async (pin: string) => {
     const hash = MD5(pin).toString();
-    const isValidUser = Object.prototype.hasOwnProperty.call(users, hash);
-    if (isValidUser) {
-      console.log(`${users[hash].username} logged in as ${users[hash].permissions}`);
-      setUser(users[hash]);
-    } else {
-      console.log('Logout');
-      setUser(users.empty);
+    try {
+      // const isValidUser = await request(url);
+      const response = await fetch(`${AUTH_URL}?authCode=${hash}`);
+      if (!response.ok) {
+        return false;
+      }
+      const authUser = await response.json() as AuthInfo;
+      console.log(`${authUser.user.username} logged in as ${authUser.user.permissions}`);
+      authUser.user.picture = profilePics[authUser.user.username] || undefined;
+      setAuth(authUser);
+      return true;
+    } catch (error) {
+      console.error(error);
     }
-    return isValidUser;
+    setAuth(emptyAuth);
+    return false;
   };
 
   return (
-    <AuthContext.Provider value={{ user, authenticate }}>
+    <AuthContext.Provider value={{ auth, authenticate }}>
       {children}
     </AuthContext.Provider>
   );

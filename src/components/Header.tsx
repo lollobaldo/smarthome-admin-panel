@@ -16,13 +16,14 @@ import logo from 'res/icons/logo-transparent.svg';
 // import iconNight from 'res/icons/night.svg';
 
 const StyledHeader = styled.header`
+  grid-area: header;
   ${theme('theme', card)}
   /* background: linear-gradient(160deg, #ffa751, #ffa751); */
-  color: #000;
+  /* color: #000; */
   z-index: 10;
-  height: 108px;
-  flex-shrink: 0;
-  border-radius: 0 0 20px 20px;
+  /* height: 108px; */
+  /* flex-shrink: 0; */
+  /* border-radius: 0 0 20px 20px; */
   display: flex;
   /* flex-wrap: wrap; */
   /* height: 96px; */
@@ -37,7 +38,7 @@ const StyledHeader = styled.header`
 
   & h1 {
     margin: auto auto auto 0;
-    font-weight: normal;
+    font-weight: 500;
   }
 `;
 
@@ -71,7 +72,6 @@ const ProfilePic = styled.img`
 // const themeIcons = { light: iconDay, dark: iconNight };
 
 const StyledHelloMsg = styled.div`
-  padding-left: 20px;
   flex-basis: 100%;
 
   & h1, & p {
@@ -88,8 +88,8 @@ const HelloMsg = ({ username }: { username?: string }) => (
 
 const Header = () => {
   // const { pathname } = useLocation();
-  const { username, picture } = useAuth().user;
-  console.log(picture);
+  const { username, picture } = useAuth().auth.user;
+  console.log(username, picture);
   const { activeTheme, toggleTheme } = useTheme();
   return (
     <StyledHeader>
@@ -102,12 +102,11 @@ const Header = () => {
           <img src={iconLeft} alt="" />
         </BackLink>
       )} */}
+      <HelloMsg username={username} />
+      {/* <Logo src={logo} alt="App Logo" /> */}
       <NightModeButton onClick={toggleTheme}>
         <ProfilePic src={picture} alt={`${username}s picture`} />
       </NightModeButton>
-      <HelloMsg username={username} />
-      {/* <Logo src={logo} alt="App Logo" /> */}
-      <Burger />
       </StyledHeader>
   );
 };

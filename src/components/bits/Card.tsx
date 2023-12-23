@@ -5,12 +5,10 @@ import theme from 'styled-theming';
 
 import { card, icon } from 'styles/theme';
 
-const StyledDiv = styled.div`
+const StyledCard = styled.div`
   ${theme('theme', card)};
   margin: auto;
-  width: 100px;
-  height: 100px;
-  border-radius: 20px;
+  border-radius: 16px;
   padding: 10px;
   display: flex;
   flex-wrap: wrap;
@@ -31,9 +29,9 @@ interface CardProps {
 }
 
 export const Card = ({ onClick, className, background, color, children }: CardProps) => (
-  <StyledDiv onClick={onClick} className={className} style={{ background, color }}>
+  <StyledCard onClick={onClick} className={className} style={{ background, color }}>
     {children}
-  </StyledDiv>
+  </StyledCard>
 );
 
 interface IconCardProps {
@@ -46,29 +44,42 @@ interface IconCardProps {
   className?: string,
 }
 
-const StyledCard = styled(Card)`
-   & svg {
+const StyledIconCard = styled(Card)`
+  & svg {
     ${theme('theme', icon)};
     margin: auto;
     width: 100%;
     /* heigth: 100%; */
-   }
+  }
 `;
 
 export const IconCard = ({ Icon, ...props }: IconCardProps) => (
-  <StyledCard {...props}>
+  <StyledIconCard {...props}>
     <Icon />
-  </StyledCard>
+  </StyledIconCard>
 );
 
-const StyledDeviceCard = styled(Card)`
-  margin: auto;
-  min-width: 150px;
-  width: calc(50% - 8px);
-  border-radius: 20px;
+export const Widget = styled(Card)`
+  margin: 16px;
+  height: 100px;
+  /* border-radius: 10px; */
   display: flex;
-  flex-flow: column wrap;
   justify-content: space-evenly;
+`;
+
+export const SmallWidgetCard = styled(Widget)`
+  min-width: 50px;
+  width: calc(50% - 8px);
+`;
+
+export const MediumWidgetCard = styled(Widget)`
+  width: auto;
+  padding: 16px;
+`;
+
+const StyledDeviceCard = styled(SmallWidgetCard)`
+  margin: auto;
+  flex-flow: column wrap;
 `;
 
 const StyledIcon = styled.img`

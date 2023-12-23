@@ -4,7 +4,7 @@ import styled from 'styled-components/macro';
 import { LightsCard } from 'components/Lights';
 import { LedsCard } from 'components/Leds';
 import { FansCard } from 'components/Fans';
-import { PlantsCard } from 'components/Plants';
+import { PlantsCard } from 'components/plants/Plants';
 import { HeaterCard } from 'components/Heater';
 
 const StyledContainer = styled.div`
@@ -19,7 +19,6 @@ const StyledFlexbox = styled.div`
 `;
 
 const Devices = () => {
-  console.log('');
   return (
     <StyledContainer>
       <h1>Devices</h1>
@@ -28,8 +27,8 @@ const Devices = () => {
         <LedsCard />
         <FansCard />
         <PlantsCard />
-        <HeaterCard />
-        <HeaterCard />
+        {/* <HeaterCard />
+        <HeaterCard /> */}
       </StyledFlexbox>
     </StyledContainer>
   );
