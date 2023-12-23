@@ -4,10 +4,6 @@ import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import theme from 'styled-theming';
 
-import { useAuth } from 'brains/auth';
-import { useTheme } from 'brains/theme';
-// import { path2title } from 'utils/state';
-
 import { mediaQuery, card, colors } from 'styles/theme';
 
 import { ReactComponent as HomeRegular } from 'res/icons/regular-home.svg';
@@ -27,8 +23,6 @@ const footerLinks = [
 ];
 
 const StyledLink = styled(Link)`
-  /* height: 24px; */
-
   & svg {
     height: 24px;
     width: auto;
@@ -47,9 +41,7 @@ const StyledFooter = styled.footer`
   ${theme('theme', card)}
   color: #000;
   z-index: 10;
-  /* height: 108px; */
   flex-shrink: 0;
-  /* border-radius: 20px 20px 0 0; */
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -64,8 +56,6 @@ const StyledFooter = styled.footer`
 
 const Footer = () => {
   const { pathname } = useLocation();
-  const { username, picture } = useAuth().auth.user;
-  const { activeTheme, toggleTheme } = useTheme();
   return (
     <StyledFooter>
       {footerLinks.map(({ path, Icon, IconSelected }) => (

@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import theme from 'styled-theming';
 
-import { mediaQuery, card } from 'styles/theme';
+import { mediaQuery } from 'styles/theme';
 
 const StyledSidebar = styled.div`
   grid-area: sidebar;

@@ -1,12 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components/macro';
-import theme from 'styled-theming';
-
-import { useThrottle } from 'brains/hooks';
 
 import Slider from 'components/bits/Slider';
-
-import { slider } from 'styles/theme';
 
 const StyledSlider = styled(Slider)<any>`
   &::-webkit-slider-runnable-track {

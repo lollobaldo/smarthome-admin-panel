@@ -5,7 +5,6 @@ import { LightsCard } from 'components/Lights';
 import { LedsCard } from 'components/Leds';
 import { FansCard } from 'components/Fans';
 import { PlantsCard } from 'components/plants/Plants';
-import { HeaterCard } from 'components/Heater';
 
 const StyledContainer = styled.div`
   padding: 16px;

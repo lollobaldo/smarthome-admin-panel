@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components/macro';
 
 import useLights from 'brains/devices/useLights';
 
-import { Card, DeviceCard } from 'components/bits/Card';
-// import { Label, Value } from 'components/bits/Text';
+import { DeviceCard } from 'components/bits/Card';
 import Switch from 'components/bits/Switch';
 import Bulb from 'components/bits/Bulb';
 import Slider from 'components/bits/Slider';
@@ -61,24 +60,24 @@ const AnimatedBulb = styled(Bulb)`
   width: 80%;
 `;
 
-const AnimatedSlider = styled(Slider)`
-  grid-area: slider;
-  transition: all 1s;
-  position: absolute;
-  /* Vertically center */
-  top: 50%;
-  transform: translateY(-50%) rotate(-90deg);
-  right: ${({ color }) => (color ? 'calc(16px - 100px + 40px);' : '-50%')};
-  width: 200px;
-  height: 80px;
-`;
+// const AnimatedSlider = styled(Slider)`
+//   grid-area: slider;
+//   transition: all 1s;
+//   position: absolute;
+//   /* Vertically center */
+//   top: 50%;
+//   transform: translateY(-50%) rotate(-90deg);
+//   right: ${({ color }) => (color ? 'calc(16px - 100px + 40px);' : '-50%')};
+//   width: 200px;
+//   height: 80px;
+// `;
 
-const AnimatedBrightnessSlider = styled(AnimatedSlider)`
-  grid-area: slider;
-  top: 50%;
-  transform: translateY(-50%) rotate(-90deg);
-  right: ${({ color }) => (color ? 'calc(16px - 100px + 40px);' : '-50%')};
-`;
+// const AnimatedBrightnessSlider = styled(AnimatedSlider)`
+//   grid-area: slider;
+//   top: 50%;
+//   transform: translateY(-50%) rotate(-90deg);
+//   right: ${({ color }) => (color ? 'calc(16px - 100px + 40px);' : '-50%')};
+// `;
 
 const BrightnessSlider = styled<any>(Slider)`
   touch-action: none; // Disable scroll-down to refresh as it causes lag

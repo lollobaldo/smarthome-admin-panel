@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const REFRESH_RATE = 1000 * 60; // 1 minute
 const BUS_STOP = '490000004E';

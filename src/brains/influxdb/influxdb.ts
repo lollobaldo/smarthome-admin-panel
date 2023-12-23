@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/quotes */
 import { useState, useEffect } from 'react';
 import { InfluxDB } from 'influx';
 import Papa from 'papaparse';
@@ -50,8 +49,7 @@ const useInflux = <T>(query: string): T[] => {
   useEffect(() => {
     const fetchData = async () => {
       const rows = await queryInfluxDb(influxDb, query);
-      // eslint-disable-next-line.
-      const b = rows && rows.text()
+      const b = rows && rows.text() // eslint-disable-line
         .then((csv: string) => Papa.parse<T>(csv, { header: true, skipEmptyLines: true }))
         .then((json) => setData(json.data));
     };
