@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/quotes */
 import { useState, useEffect } from 'react';
 import { InfluxDB } from 'influx';
 import Papa from 'papaparse';
@@ -43,7 +44,7 @@ const useInflux = <T>(query: string): T[] => {
   const { influxDb } = useAuth().auth.tokens;
 
   if (!client && influxDb) {
-    console.log('Connecting to InfluxDB');
+    console.log("'Connecting to InfluxDB'");
   }
 
   useEffect(() => {
