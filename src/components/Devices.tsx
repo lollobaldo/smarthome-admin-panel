@@ -6,10 +6,6 @@ import { LedsCard } from 'components/Leds';
 import { FansCard } from 'components/Fans';
 import { PlantsCard } from 'components/plants/Plants';
 
-const StyledContainer = styled.div`
-  padding: 16px;
-`;
-
 const StyledFlexbox = styled.div`
   display: flex;
   justify-content: space-between;
@@ -19,7 +15,7 @@ const StyledFlexbox = styled.div`
 
 const Devices = () => {
   return (
-    <StyledContainer>
+    <div>
       <h1>Devices</h1>
       <StyledFlexbox>
         <LightsCard />
@@ -29,7 +25,7 @@ const Devices = () => {
         {/* <HeaterCard />
         <HeaterCard /> */}
       </StyledFlexbox>
-    </StyledContainer>
+    </div>
   );
 };
 

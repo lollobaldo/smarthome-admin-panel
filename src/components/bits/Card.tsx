@@ -7,7 +7,6 @@ import { card, icon } from 'styles/theme';
 
 const StyledCard = styled.div`
   ${theme('theme', card)};
-  margin: auto;
   border-radius: 16px;
   padding: 10px;
   display: flex;
@@ -60,10 +59,10 @@ export const IconCard = ({ Icon, ...props }: IconCardProps) => (
 );
 
 export const Widget = styled(Card)`
-  margin: 16px;
   height: 100px;
-  /* border-radius: 10px; */
+  margin: auto;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
 `;
 
@@ -73,7 +72,7 @@ export const SmallWidgetCard = styled(Widget)`
 `;
 
 export const MediumWidgetCard = styled(Widget)`
-  width: auto;
+  width: 100%;
   padding: 16px;
 `;
 

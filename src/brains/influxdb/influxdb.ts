@@ -7,9 +7,9 @@ import { useAuth } from 'brains/auth';
 
 const INFLUXDB_HOST = 'https://eu-central-1-1.aws.cloud2.influxdata.com';
 
-type Sensor = 'humidity' | 'temperature';
+type Sensor = 'humidity' | 'temperature' | 'illuminance';
 type RawSensorPoint = { _time: Date, _value: number };
-type SensorPoint = { time: Date, value: number };
+export type SensorPoint = { time: Date, value: number };
 
 export type LogLevel = 'LOG' | 'WRN' | 'ERR';
 type RawLogItem = { _time: Date, device: string, level: LogLevel, module: string, _value: string };
@@ -66,6 +66,7 @@ export const useLogs = (): LogItem[] => {
   from(bucket: "smarthome")\
     |> range(start: 2000-08-01T00:00:00Z)\
     |> filter(fn: (r) => exists r.level)\
+    |> sort(columns: ["_time"], desc: true)\
     |> keep(columns: ["_time", "device", "level", "module", "_value"])\
   `;
   const data = useInflux<RawLogItem>(query);

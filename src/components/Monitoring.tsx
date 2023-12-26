@@ -3,43 +3,87 @@ import styled from 'styled-components/macro';
 
 import { groupBy } from 'brains/utils';
 import { useLogs, LogLevel } from 'brains/influxdb/influxdb';
+import { useMultiTogglesNoneIsAll } from 'brains/hooks';
+import { Card } from 'components/bits/NewCard';
+import { NoData } from './bits/Errors';
 
-const logLevel2Color = (ll: LogLevel): string => {
-  if (ll === 'LOG') return '';
-  if (ll === 'WRN') return '#f80';
-  return '#f00';
+const log2Colors: { [ll in LogLevel]: string } = {
+  LOG: '#555',
+  WRN: '#f80',
+  ERR: '#f00',
+};
+const logLevel2Color = (ll: LogLevel): string => log2Colors[ll] || log2Colors.ERR;
+
+const StyledFilter = styled(Card)<{ color: string, active: boolean }>`
+  border: 1px solid ${props => props.color};
+
+  background: ${props => props.active ? props.color : ''};
+  color: ${props => props.active ? 'white' : props.color};
+`;
+
+const StyledFilters = styled.div`
+  width: 100%;
+  padding: 16px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+`;
+
+const Filters = ({ activeFilters, toggleFilter }: any) => {
+  return (
+    <StyledFilters>
+      <b>Log Levels:</b>
+      {Object.entries(log2Colors).map(([ll, color]) => (
+        <StyledFilter
+          key={ll}
+          color={color}
+          active={activeFilters.has(ll)}
+          onClick={() => toggleFilter(ll)}>
+            {ll}
+        </StyledFilter>
+      ))}
+    </StyledFilters>
+  );
 };
 
 const StyledContainer = styled.div`
+  height: 100%;
   display: flex;
   gap: 10px 20px;
   flex-wrap: wrap;
   overflow: scroll;
+  align-content: flex-start;
+
+  & p {
+    margin: 0;
+  }
 `;
 
 const StyledRow = styled.div`
-  grid-area: content;
-  width: 100%;
+  flex: 1 1 100%;
 `;
 
 const Monitoring = () => {
   const logs = useLogs();
-  const logsByDay = groupBy(logs, ({ time }) => time.toDateString());
+  const [activeFilters, toggleFilter] = useMultiTogglesNoneIsAll(new Set(Object.keys(log2Colors)));
+  const filteredLogs = logs.filter(log => activeFilters.has(log.level));
+  const logsByDay = groupBy(filteredLogs, ({ time }) => time.toDateString());
   console.log(logsByDay);
   return (
     <StyledContainer>
-      <StyledRow></StyledRow>
-      {Object.entries(logsByDay).map(([day, logLines], i) => (
-        <>
-          <p key={i}>{day}</p>,
-          {logLines.map(({ device, level, module, message }, ii) => (
-            <StyledRow key={ii} data-module={module} style={{ color: logLevel2Color(level) }}>
-              <span>{device}</span>
-              <span>{message}</span>
-            </StyledRow>
-          ))}
-        </>
-      ))};
+      <Filters activeFilters={activeFilters} toggleFilter={toggleFilter} />
+      {!Object.keys(logsByDay).length ?
+        <NoData msg="No logs found matching the query." /> :
+        Object.entries(logsByDay).map(([day, logLines], i) => (
+          <>
+            <b key={i}>{day}</b>
+            {logLines.map(({ device, level, module, message }, ii) => (
+              <StyledRow key={ii} data-module={module} style={{ color: logLevel2Color(level) }}>
+                <span>{device}</span> <span>{message}</span>
+              </StyledRow>
+            ))}
+          </>
+        ))}
     </StyledContainer>
   );
 };

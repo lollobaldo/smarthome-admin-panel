@@ -9,6 +9,32 @@ export const useOneOf = <T>(selected: T | null = null): [T | null, (key: T) => v
   return [state, callback];
 };
 
+export const useMultiToggles = <T>(selected: Set<T> = new Set()): [Set<T>, (key: T) => void] => {
+  const [state, setState] = useState(selected);
+  const change = (key: T) => {
+    setState(s => {
+      const newState = new Set(s);
+      if (newState.has(key)) newState.delete(key); else newState.add(key);
+      return newState;
+    });
+  };
+  const callback = useCallback(change, []);
+  return [state, callback];
+};
+
+export const useMultiTogglesNoneIsAll = <T>(all: Set<T>, selected: Set<T> = new Set(all)): [Set<T>, (key: T) => void] => {
+  const [state, setState] = useState(selected.size ? selected : all);
+  const change = (key: T) => {
+    setState(s => {
+      const newState = new Set(s);
+      if (newState.has(key)) newState.delete(key); else newState.add(key);
+      return newState.size ? newState : all;
+    });
+  };
+  const callback = useCallback(change, [all]);
+  return [state, callback];
+};
+
 export const useMediaQuery = (query: string, defaultState = false) => {
   const [state, setState] = useState(defaultState);
 

@@ -44,13 +44,6 @@ const StyledStats = styled(MediumWidgetCard)`
   justify-content: space-evenly;
 `;
 
-// const HelloMsg = ({ username }: { username?: string }) => (
-//   <StyledHelloMsg>
-//     <h1>{`Hello, ${username || 'user'}!`}</h1>
-//     <p>Welcome home.</p>
-//   </StyledHelloMsg>
-// );
-
 type StatProps = { title: string, value: string, icon?: string };
 
 const Stat = ({ title, value, icon }: StatProps) => (
@@ -71,14 +64,19 @@ const Stats = () => {
   );
 };
 
+const Content = styled.div`
+  padding: 16px;
+  padding-top: 26px;
+`;
+
 const Home = () => {
   return (
-    <div>
+    <Content>
       {/* <HelloMsg username={username} /> */}
       <Stats />
       <Presets />
       <Devices />
-    </div>
+    </Content>
   );
 };
 
