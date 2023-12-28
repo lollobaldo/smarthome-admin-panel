@@ -4,22 +4,21 @@ import styled from 'styled-components/macro';
 
 import { PlantsState } from 'brains/devices/usePlants';
 import { groupBy } from 'brains/utils';
-import { SmallWidgetCard } from 'components/bits/Card';
+import { Card } from 'components/bits/Card';
 import DriveImg from 'components/bits/DriveImg';
 
 
-const StyledPlantPreview = styled(SmallWidgetCard)`
-  display: flex;
-  flex-wrap: wrap;
+const StyledPlantPreview = styled(Card)`
   width: 30%;
   height: auto;
+  display: flex;
+  flex-wrap: wrap;
   align-items: flex-end;
   flex-shrink: 0;
   & img {
     max-width: 128px;
     max-height: 128px;
     flex-shrink: 0;
-    /* flex: 0 0 100%; */
   }
   & h4 {
     text-align: center;
@@ -40,17 +39,24 @@ const PlantPreview = ({ name, driveId, onClick }: PlantPreviewProps) => (
   </StyledPlantPreview>
 );
 
-const StyledPlantsContainer = styled.div`
+const StyledPlantsList = styled.div`
+  padding: 16px;
+  max-width: 100vw;
   display: flex;
   overflow: scroll;
   justify-content: flex-start;
-  max-width: 100vw;
+  gap: 16px;
+`;
+
+const PlantsGroup = styled.div`
+  & h2 {
+    margin: 0 16px;
+  }
 `;
 
 const Container = styled.div`
-  & h2 {
-    margin-bottom: 0;
-  }
+  height: 100%;
+  margin-top: 16px;
 `;
 
 const PlantsList = ({ plantsState }: { plantsState: PlantsState }) => {
@@ -59,14 +65,14 @@ const PlantsList = ({ plantsState }: { plantsState: PlantsState }) => {
   return (
     <Container>
       {Object.entries(plantsByGroup).sort(([a], [b]) => a.localeCompare(b)).map(([groupId, plants]) => (
-        <div key={groupId}>
+        <PlantsGroup key={groupId}>
           <h2>{plantsState.groups[groupId]?.name || 'Others'}</h2>
-          <StyledPlantsContainer>
+          <StyledPlantsList>
             {plants.map(({ id, name, driveId }) => (
               <PlantPreview key={id} driveId={driveId} name={name} onClick={() => navigate(`plant/${id}`)} />
             ))}
-          </StyledPlantsContainer>
-        </div>
+          </StyledPlantsList>
+        </PlantsGroup>
       ))}
     </Container>
   );
