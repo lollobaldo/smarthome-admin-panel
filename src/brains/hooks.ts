@@ -9,6 +9,15 @@ export const useOneOf = <T>(selected: T | null = null): [T | null, (key: T) => v
   return [state, callback];
 };
 
+export const useOneOfToggle = <T>(selected: T): [T, (key: T) => void] => {
+  const [state, setState] = useState(selected);
+  const change = (key: T) => {
+    setState(() => key);
+  };
+  const callback = useCallback(change, []);
+  return [state, callback];
+};
+
 export const useMultiToggles = <T>(selected: Set<T> = new Set()): [Set<T>, (key: T) => void] => {
   const [state, setState] = useState(selected);
   const change = (key: T) => {

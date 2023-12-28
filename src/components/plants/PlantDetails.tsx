@@ -1,17 +1,19 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
+import { useOneOfToggle } from 'brains/hooks';
 import { useSensor } from 'brains/influxdb/influxdb';
 import { PlantState, PlantInfo, Id } from 'brains/devices/usePlants';
-import PlantSensorChart from './PlantSensorChart';
+import TimeChart from '../bits/TimeChart';
 import DriveImg from 'components/bits/DriveImg';
 import { Card } from 'components/bits/NewCard';
 import { PlainStats } from 'components/bits/StatsCard';
+import { NoData } from 'components/bits/Errors';
+import LookbackDays from 'components/bits/LookbackDays';
 
 import thermometerIcon from 'res/icons/thermometer.svg';
 import humidityIcon from 'res/icons/hygrometer.svg';
 import sunIcon from 'res/icons/sun.svg';
-import { NoData } from 'components/bits/Errors';
 
 const StyledDetailCard = styled(Card)`
   height: max(10%, 140px);
@@ -57,21 +59,32 @@ const SensorsDataContainer = styled(Card)`
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SensorsData = ({ id }: Id) => {
-  const data = [
-    { title: 'Temp', value: '24°C', icon: thermometerIcon },
-    { title: 'RH', value: '78%', icon: humidityIcon },
-    { title: 'Light', value: '900lx', icon: sunIcon },
+  const [lookbackDays, changeLookbackDays] = useOneOfToggle(5);
+  const humidity = useSensor('humidity', lookbackDays);
+  const temperature = useSensor('temperature', lookbackDays);
+  const illuminance = useSensor('illuminance', lookbackDays);
+  const hasData = humidity.data.length || temperature.data.length || illuminance.data.length;
+
+  const stats = [
+    { title: 'Temp', unit: temperature.unit, value: temperature.data.at(-1)?.value, icon: thermometerIcon },
+    { title: 'RH', unit: humidity.unit, value: humidity.data.at(-1)?.value, icon: humidityIcon },
+    { title: 'Light', unit: illuminance.unit, value: illuminance.data.at(-1)?.value, icon: sunIcon },
   ];
-  const humidityData = useSensor('humidity');
-  const temperatureData = useSensor('temperature');
-  const illuminanceData = useSensor('illuminance');
-  const hasData = humidityData.length || temperatureData.length || illuminanceData.length;
-  console.log(humidityData, temperatureData, illuminanceData, hasData, !!hasData);
+
+  const chartData = [
+    { data: temperature.data, stroke: '#ff3d00' },
+    { data: humidity.data, stroke: '#2196f3' },
+    { data: illuminance.data, stroke: '#ffac33' },
+  ];
+
+  const lookbackDaysOptions = [2, 5, 30];
+
   return (
     <SensorsDataContainer>
-      <PlainStats stats={data} />
+      <PlainStats stats={stats} />
+      <LookbackDays selected={lookbackDays} options={lookbackDaysOptions} changeLookbackDays={changeLookbackDays} />
       {hasData
-        ? <PlantSensorChart data={[humidityData, temperatureData, illuminanceData]} />
+        ? <TimeChart lines={chartData} />
         : <NoData msg={`No data found for sensor ${id}`} />
       }
     </SensorsDataContainer>

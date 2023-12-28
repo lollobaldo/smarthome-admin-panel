@@ -7,9 +7,19 @@ import { useAuth } from 'brains/auth';
 
 const INFLUXDB_HOST = 'https://eu-central-1-1.aws.cloud2.influxdata.com';
 
-type Sensor = 'humidity' | 'temperature' | 'illuminance';
+type Sensor = 'temperature' | 'humidity' | 'illuminance';
+type Unit = '°C' | '%' | 'lx';
+
+const sensorToUnit: { [sensorType in Sensor]: Unit } = {
+  temperature: '°C',
+  humidity: '%',
+  illuminance: 'lx',
+};
+
 type RawSensorPoint = { _time: Date, _value: number };
 export type SensorPoint = { time: Date, value: number };
+export type SensorResponse = { unit: Unit, data: SensorPoint[] };
+
 
 export type LogLevel = 'LOG' | 'WRN' | 'ERR';
 type RawLogItem = { _time: Date, device: string, level: LogLevel, module: string, _value: string };
@@ -73,14 +83,15 @@ export const useLogs = (): LogItem[] => {
   return data && data.map(({ _time, _value, ...rest }) => ({ time: new Date(_time), message: _value, ...rest }));
 };
 
-export const useSensor = (sensorType: Sensor): SensorPoint[] => {
+export const useSensor = (sensorType: Sensor, lookbackDays: number = 2): SensorResponse => {
   const query = `\
   from(bucket: "smarthome")\
-    |> range(start: -2d)\
+    |> range(start: -${lookbackDays}d)\
     |> filter(fn: (r) => r._field == "${sensorType}")\
     |> timedMovingAverage(every: 30m, period: 30m)\
     |> keep(columns: ["_time", "_value"])\
   `;
   const data = useInflux<RawSensorPoint>(query);
-  return data && data.map(({ _time, _value }) => ({ time: new Date(_time), value: _value }));
+  const processedData = data && data.map(({ _time, _value }) => ({ time: new Date(_time), value: _value }));
+  return { unit: sensorToUnit[sensorType], data: processedData };
 };

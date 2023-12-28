@@ -42,15 +42,15 @@ const StyledPlainStats = styled.div`
   flex: 0 0 auto;
 `;
 
-export const Stat = ({ title, value, icon }: StatProps) => (
+export const Stat = ({ title, value, unit, icon }: StatProps) => (
   <StyledStat>
     <img src={icon} alt={title} />
     <h6>{title}</h6>
-    <p>{value}</p>
+    <p>{value ? +parseFloat(value).toFixed(1) + unit : 'NA'}</p>
   </StyledStat>
 );
 
-type StatProps = { title: string, value: string, icon?: string };
+type StatProps = { title: string, value: any, unit: string, icon?: string };
 
 type StatsCardProps = {
   stats: StatProps[],

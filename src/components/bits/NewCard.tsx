@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import theme from 'styled-theming';
 
-import { card, icon } from 'styles/theme';
+import { card, colors, icon } from 'styles/theme';
 
 const StyledCard = styled.div`
   ${theme('theme', card)};
   border-radius: 16px;
-  padding: 10px;
+  padding: 16px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -18,11 +18,18 @@ const StyledCard = styled.div`
   }
 `;
 
-export const Card = ({ children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <StyledCard {...props}>
-    {children}
-  </StyledCard>
-);
+export const Card = StyledCard;
+
+export const Badge = styled(Card)`
+  padding: 4px 8px;
+  border: 1px solid black;
+
+  &.active {
+    font-weight: bold;
+    border: 1px solid ${colors.secondary};
+    color: ${colors.secondary};
+  }
+`;
 
 const StyledIconCard = styled(Card)`
   & svg {
