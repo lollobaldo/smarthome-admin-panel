@@ -18,10 +18,6 @@ import { GlobalStyle, mediaQuery } from 'styles/theme';
 import TabletScreen from 'components/bits/TabletScreen';
 
 const AppContainer = styled.div`
-  /* display: flex;
-  flex-flow: column;
-  flex-wrap: wrap;
-  justify-content: space-between; */
   height: 100%;
   overflow-y: hidden;
 

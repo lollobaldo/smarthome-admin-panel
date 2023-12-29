@@ -4,7 +4,7 @@ import styled from 'styled-components/macro';
 import { useOneOfToggle } from 'brains/hooks';
 import { useSensor } from 'brains/influxdb/influxdb';
 import { PlantState, PlantInfo, Id } from 'brains/devices/usePlants';
-import TimeChart from '../bits/TimeChart';
+import TimeChart from 'components/bits/TimeChart';
 import DriveImg from 'components/bits/DriveImg';
 import { Card } from 'components/bits/NewCard';
 import { PlainStats } from 'components/bits/StatsCard';

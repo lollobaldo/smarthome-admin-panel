@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 
 import { MediumWidgetCard } from 'components/bits/NewCard';
 
@@ -30,19 +30,15 @@ const StyledStat = styled.div`
   }
 `;
 
-const StyledStats = styled(MediumWidgetCard)`
+const StatsStyle = css`
   display: flex;
-  justify-content: space-evenly;
+  align-items: center;
   flex: 0 0 auto;
 `;
+const StyledStats = styled(MediumWidgetCard)`${StatsStyle}`;
+const StyledPlainStats = styled.div`${StatsStyle}`;
 
-const StyledPlainStats = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  flex: 0 0 auto;
-`;
-
-export const Stat = ({ title, value, unit, icon }: StatProps) => (
+const Stat = ({ title, value, unit, icon }: StatProps) => (
   <StyledStat>
     <img src={icon} alt={title} />
     <h6>{title}</h6>

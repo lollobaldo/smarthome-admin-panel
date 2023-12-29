@@ -194,7 +194,6 @@ const Lights = () => {
   return (
     <Container>
       {/* <Header /> */}
-      {/* <LightBulb> */}
       <AnimatedBulb onClick={toggleLight} color={color} brightness={brightness} />
       <BrightnessSlider state={state.state} value={brightness} onChange={setBrightness}
         gradient={brightnessGradient} value2color={value2color.bind(null, brightnessGradient)}
@@ -202,7 +201,6 @@ const Lights = () => {
       <TemperatureSlider value={temperature} onChange={setTemperature}
         gradient={temperatureGradient} value2color={value2color.bind(null, temperatureGradient)}
         min={0} max={255} />
-      {/* </LightBulb> */}
       {/* <Footer /> */}
     </Container>
   );

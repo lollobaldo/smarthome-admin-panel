@@ -10,7 +10,7 @@ const INFLUXDB_HOST = 'https://eu-central-1-1.aws.cloud2.influxdata.com';
 type Sensor = 'temperature' | 'humidity' | 'illuminance';
 type Unit = '°C' | '%' | 'lx';
 
-const sensorToUnit: { [sensorType in Sensor]: Unit } = {
+export const units: { [sensorType in Sensor]: Unit } = {
   temperature: '°C',
   humidity: '%',
   illuminance: 'lx',
@@ -93,5 +93,5 @@ export const useSensor = (sensorType: Sensor, lookbackDays: number = 2): SensorR
   `;
   const data = useInflux<RawSensorPoint>(query);
   const processedData = data && data.map(({ _time, _value }) => ({ time: new Date(_time), value: _value }));
-  return { unit: sensorToUnit[sensorType], data: processedData };
+  return { unit: units[sensorType], data: processedData };
 };
