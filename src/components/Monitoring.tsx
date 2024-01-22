@@ -4,7 +4,7 @@ import styled from 'styled-components/macro';
 import { groupBy } from 'brains/utils';
 import { useLogs, LogLevel } from 'brains/influxdb/influxdb';
 import { useMultiTogglesNoneIsAll } from 'brains/hooks';
-import { Card } from 'components/bits/NewCard';
+import { Card } from 'components/bits/Card';
 import { NoData } from './bits/Errors';
 
 const log2Colors: { [ll in LogLevel]: string } = {
@@ -14,11 +14,12 @@ const log2Colors: { [ll in LogLevel]: string } = {
 };
 const logLevel2Color = (ll: LogLevel): string => log2Colors[ll] || log2Colors.ERR;
 
-const StyledFilter = styled(Card)<{ color: string, active: boolean }>`
-  border: 1px solid ${props => props.color};
+const StyledFilter = styled(Card)<{ filterColor: string, active: boolean }>`
+  border: 1px solid ${props => props.filterColor};
 
-  background: ${props => props.active ? props.color : ''};
-  color: ${props => props.active ? 'white' : props.color};
+  background: ${props => props.active ? props.filterColor : ''};
+  color: ${props => props.active ? 'white' : props.filterColor};
+  ${props => !props.active ? 'box-shadow: none' : ''}
 `;
 
 const StyledFilters = styled.div`
@@ -33,10 +34,10 @@ const Filters = ({ activeFilters, toggleFilter }: any) => {
   return (
     <StyledFilters>
       <b>Log Levels:</b>
-      {Object.entries(log2Colors).map(([ll, color]) => (
+      {Object.entries(log2Colors).map(([ll, filterColor]) => (
         <StyledFilter
           key={ll}
-          color={color}
+          filterColor={filterColor}
           active={activeFilters.has(ll)}
           onClick={() => toggleFilter(ll)}>
             {ll}

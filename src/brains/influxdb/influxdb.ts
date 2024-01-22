@@ -19,6 +19,7 @@ export const units: { [sensorType in Sensor]: Unit } = {
 type RawSensorPoint = { _time: Date, _value: number };
 export type SensorPoint = { time: Date, value: number };
 export type SensorResponse = { unit: Unit, data: SensorPoint[] };
+export type SensorInstantResponse = { unit: Unit, point?: SensorPoint };
 
 
 export type LogLevel = 'LOG' | 'WRN' | 'ERR';
@@ -88,10 +89,23 @@ export const useSensor = (sensorType: Sensor, lookbackDays: number = 2): SensorR
   from(bucket: "smarthome")\
     |> range(start: -${lookbackDays}d)\
     |> filter(fn: (r) => r._field == "${sensorType}")\
-    |> timedMovingAverage(every: 30m, period: 30m)\
+    |> timedMovingAverage(every: 5m, period: 5m)\
     |> keep(columns: ["_time", "_value"])\
   `;
   const data = useInflux<RawSensorPoint>(query);
   const processedData = data && data.map(({ _time, _value }) => ({ time: new Date(_time), value: _value }));
   return { unit: units[sensorType], data: processedData };
+};
+
+export const useSensorInstant = (sensorType: Sensor): SensorInstantResponse => {
+  const query = `\
+  from(bucket: "smarthome")\
+    |> range(start: 0)\
+    |> filter(fn: (r) => r._field == "${sensorType}")\
+    |> keep(columns: ["_time", "_value"])\
+    |> last()
+  `;
+  const data = useInflux<RawSensorPoint>(query);
+  const processedData = data && data.map(({ _time, _value }) => ({ time: new Date(_time), value: _value }));
+  return { unit: units[sensorType], point: processedData?.[0] };
 };

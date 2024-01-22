@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 
 import useLights from 'brains/devices/useLights';
 
-import { DeviceCard } from 'components/bits/Card';
+import DeviceCard from 'components/bits/DeviceCard';
 import Switch from 'components/bits/Switch';
 import Bulb from 'components/bits/Bulb';
 import Slider from 'components/bits/Slider';

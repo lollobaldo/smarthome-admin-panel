@@ -30,6 +30,10 @@ export const ThemeProvider = ({ defaultTheme, children }: ThemeProviderProps) =>
     document!.querySelector('meta[name=theme-color]')!.setAttribute('content', headerBackground[activeTheme]);
   }, [activeTheme]);
 
+  useEffect(() => {
+    document.body.classList.toggle('dark', activeTheme === 'dark');
+  }, [activeTheme]);
+
   const setTheme = (theme: Theme) => setThemeNative(theme);
 
   const toggleTheme = () => {

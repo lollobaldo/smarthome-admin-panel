@@ -12,6 +12,7 @@ const StyledContent = styled.div`
   grid-area: content;
   max-height: 100%;
   overflow: hidden;
+  position: relative;
 `;
 
 const Content = () => (

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import { Badge } from 'components/bits/NewCard';
+import { Badge } from 'components/bits/Card';
 
 const Container = styled.div`
   width: 100%;

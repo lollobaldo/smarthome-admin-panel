@@ -14,6 +14,7 @@ import { ReactComponent as UserRegular } from 'res/icons/regular-user.svg';
 import { ReactComponent as UserSolid } from 'res/icons/solid-user.svg';
 import { ReactComponent as MonitoringRegular } from 'res/icons/regular-monitoring.svg';
 import { ReactComponent as MonitoringSolid } from 'res/icons/solid-monitoring.svg';
+import { elevation2 } from 'styles/elevation';
 
 const footerLinks = [
   { path: '/', Icon: HomeRegular, IconSelected: HomeSolid },
@@ -23,9 +24,20 @@ const footerLinks = [
 ];
 
 const StyledLink = styled(Link)`
+  width: 64px;
+  height: 32px;
+  border-radius: 16px;
+  text-align: center;
+  padding: 4px;
+  color: var(--md-sys-color-on-surface);
+
   & svg {
     height: 24px;
     width: auto;
+  }
+
+  &.active {
+    background: var(--md-sys-color-secondary-container);
   }
 `;
 
@@ -38,7 +50,11 @@ const StyledFooter = styled.footer`
   position: sticky;
   bottom: 0;
 
-  ${theme('theme', card)}
+  ${elevation2};
+  background: var(--md-sys-color-surface-container-low);
+  color: var(--md-sys-color-on-surface);
+
+  /* ${theme('theme', card)} */
   color: #000;
   z-index: 10;
   flex-shrink: 0;
@@ -46,11 +62,6 @@ const StyledFooter = styled.footer`
   align-items: center;
   justify-content: space-around;
   padding: 16px;
-
-  & h1 {
-    margin: auto auto auto 0;
-    font-weight: normal;
-  }
 `;
 
 
@@ -59,10 +70,11 @@ const Footer = () => {
   return (
     <StyledFooter>
       {footerLinks.map(({ path, Icon, IconSelected }) => (
-        <StyledLink key={path} to={path}>
+        <StyledLink key={path} to={path} className={path === pathname ? 'active' : ''}>
           {path === pathname ?
-            <IconSelected style={{ color: colors.secondary }} /> :
-            <Icon style={{ color: colors.grey }} />}
+              <IconSelected /> :
+              <Icon />
+          }
         </StyledLink>
       ))}
     </StyledFooter>

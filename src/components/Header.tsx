@@ -5,10 +5,13 @@ import theme from 'styled-theming';
 import { useAuth } from 'brains/auth';
 import { useTheme } from 'brains/theme';
 import { mediaQuery, card } from 'styles/theme';
+import { elevation1 } from 'styles/elevation';
 
 const StyledHeader = styled.header`
   grid-area: header;
-  ${theme('theme', card)}
+  ${elevation1};
+  background: var(--md-sys-color-surface-container);
+  /* ${theme('theme', card)} */
   /* background: linear-gradient(160deg, #ffa751, #ffa751); */
   /* color: #000; */
   z-index: 10;

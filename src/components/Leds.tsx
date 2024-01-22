@@ -4,7 +4,7 @@ import styled from 'styled-components/macro';
 
 import useLeds from 'brains/devices/useLeds';
 
-import { DeviceCard } from 'components/bits/Card';
+import DeviceCard from 'components/bits/DeviceCard';
 import Modal from 'components/bits/Modal';
 import Switch from 'components/bits/Switch';
 

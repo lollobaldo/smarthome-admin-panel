@@ -2,7 +2,7 @@ import React from 'react';
 
 import useLevel from 'brains/devices/useLevel';
 
-import { DeviceCard } from 'components/bits/Card';
+import DeviceCard from 'components/bits/DeviceCard';
 
 import heatingIcon from 'res/icons/heating.svg';
 

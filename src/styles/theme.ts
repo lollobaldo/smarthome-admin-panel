@@ -1,6 +1,7 @@
-// import React from 'react';
 import { createGlobalStyle, css } from 'styled-components/macro';
-import theme from 'styled-theming';
+
+import './css/light.css';
+import './css/dark.css';
 
 export type DeviceType = 'mobile' | 'tablet' | 'desktop';
 type MediaQuerySize = Record<DeviceType, string>;
@@ -66,17 +67,6 @@ export const gradients = {
 export const mediaQuery = (key: DeviceType) => (
   `@media (min-width: ${sizes[key]})`
 );
-
-export const body = {
-  light: css`
-    background: #f5f5f5;
-    color: #333;
-  `,
-  dark: css`
-    background: #222;
-    color: #ddd;
-  `,
-};
 
 export const primaryText = {
   light: css`
@@ -161,8 +151,9 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    background: var(--md-sys-color-background);
+    color: var(--md-sys-color-on-background);
     margin: 0;
-    ${theme('theme', body)}
   }
 
   #root {
@@ -178,5 +169,3 @@ export const GlobalStyle = createGlobalStyle`
     font: inherit;
   }
 `;
-
-// export default { myTheme };

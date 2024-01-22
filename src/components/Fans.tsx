@@ -2,7 +2,7 @@ import React from 'react';
 
 import useSwitch from 'brains/devices/useSwitch';
 
-import { DeviceCard } from 'components/bits/Card';
+import DeviceCard from 'components/bits/DeviceCard';
 import Switch from 'components/bits/Switch';
 
 import bulbIcon from 'res/icons/fan.svg';

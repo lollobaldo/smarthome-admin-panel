@@ -1,6 +1,6 @@
 import React, { ImgHTMLAttributes } from 'react';
 
-const DRIVE_URL = 'https://drive.google.com/uc?id=';
+const DRIVE_URL = 'https://lh3.google.com/u/0/d/';
 
 const driveUrl = (id: string) => `${DRIVE_URL}${id}`;
 

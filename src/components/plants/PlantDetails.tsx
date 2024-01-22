@@ -2,18 +2,20 @@ import React from 'react';
 import styled from 'styled-components/macro';
 
 import { useOneOfToggle } from 'brains/hooks';
-import { useSensor } from 'brains/influxdb/influxdb';
+import { useSensor, useSensorInstant } from 'brains/influxdb/influxdb';
 import { PlantState, PlantInfo, Id } from 'brains/devices/usePlants';
 import TimeChart from 'components/bits/TimeChart';
 import DriveImg from 'components/bits/DriveImg';
-import { Card } from 'components/bits/NewCard';
+import { Card } from 'components/bits/Card';
 import { PlainStats } from 'components/bits/StatsCard';
 import { NoData } from 'components/bits/Errors';
 import LookbackDays from 'components/bits/LookbackDays';
+import Fab from 'components/bits/Fab';
 
 import thermometerIcon from 'res/icons/thermometer.svg';
 import humidityIcon from 'res/icons/hygrometer.svg';
 import sunIcon from 'res/icons/sun.svg';
+import wateringIcon from 'res/icons/watering-can.svg';
 
 const StyledDetailCard = styled(Card)`
   height: max(10%, 140px);
@@ -63,12 +65,17 @@ const SensorsData = ({ id }: Id) => {
   const humidity = useSensor('humidity', lookbackDays);
   const temperature = useSensor('temperature', lookbackDays);
   const illuminance = useSensor('illuminance', lookbackDays);
+
+  const humidityInstant = useSensorInstant('humidity');
+  const temperatureInstant = useSensorInstant('temperature');
+  const illuminanceInstant = useSensorInstant('illuminance');
+
   const hasData = humidity.data.length || temperature.data.length || illuminance.data.length;
 
   const stats = [
-    { title: 'Temp', unit: temperature.unit, value: temperature.data.at(-1)?.value, icon: thermometerIcon },
-    { title: 'RH', unit: humidity.unit, value: humidity.data.at(-1)?.value, icon: humidityIcon },
-    { title: 'Light', unit: illuminance.unit, value: illuminance.data.at(-1)?.value, icon: sunIcon },
+    { title: 'Temp', unit: temperatureInstant.unit, value: temperatureInstant.point?.value, icon: thermometerIcon },
+    { title: 'RH', unit: humidityInstant.unit, value: humidityInstant.point?.value, icon: humidityIcon },
+    { title: 'Light', unit: illuminanceInstant.unit, value: illuminanceInstant.point?.value, icon: sunIcon },
   ];
 
   const chartData = [
@@ -104,6 +111,7 @@ const PlantDetails = ({ id, ...plantDetails }: PlantState) => (
   <Container>
     <Details {...plantDetails} />
     <SensorsData id={id} />
+    <Fab title="" iconSrc={wateringIcon} />
   </Container>
 );
 

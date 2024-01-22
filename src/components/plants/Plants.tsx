@@ -4,7 +4,7 @@ import { Routes, Route, useParams } from 'react-router-dom';
 import usePlants, { PlantState } from 'brains/devices/usePlants';
 import PlantsList from './PlantsList';
 import PlantDetails from './PlantDetails';
-import { DeviceCard } from 'components/bits/Card';
+import DeviceCard from 'components/bits/DeviceCard';
 
 import plantIcon from 'res/icons/plant-potted.svg';
 

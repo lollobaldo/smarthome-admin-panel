@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 
-import { MediumWidgetCard } from 'components/bits/NewCard';
+import { MediumWidgetCard } from 'components/bits/Card';
 
 const StyledStat = styled.div`
   display: flex;

@@ -1,26 +1,23 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { MouseEventHandler } from 'react';
 import styled from 'styled-components/macro';
 import theme from 'styled-theming';
 
-import { card, icon } from 'styles/theme';
+import { elevation1 } from 'styles/elevation';
+import { colors, icon } from 'styles/theme';
 
 const StyledCard = styled.div`
-  ${theme('theme', card)};
+  ${elevation1};
+  background: var(--md-sys-color-surface-container-low);
   border-radius: 16px;
-  padding: 10px;
+  padding: 16px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-
-  &:hover {
-    box-shadow: 0 4px 6px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.15);
-  }
+  justify-content: space-evenly;
+  align-items: stretch;
 `;
 
 interface CardProps {
-  onClick?: () => void,
+  onClick?: MouseEventHandler<HTMLDivElement>,
   background?: string,
   color?: string,
   className?: string,
@@ -33,24 +30,28 @@ export const Card = ({ onClick, className, background, color, children }: CardPr
   </StyledCard>
 );
 
-interface IconCardProps {
-  Icon: React.FunctionComponent<React.SVGProps<SVGSVGElement> & {
-    title?: string | undefined;
-  }>,
-  background?: string,
-  color?: string,
-  onClick?: () => void,
-  className?: string,
-}
+export const Badge = styled(Card)`
+  padding: 4px 8px;
+  border: 1px solid black;
+
+  &.active {
+    font-weight: bold;
+    border: 1px solid ${colors.secondary};
+    color: ${colors.secondary};
+  }
+`;
 
 const StyledIconCard = styled(Card)`
   & svg {
     ${theme('theme', icon)};
     margin: auto;
     width: 100%;
-    /* heigth: 100%; */
   }
 `;
+
+interface IconCardProps extends React.HTMLAttributes<HTMLDivElement> {
+  Icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>,
+}
 
 export const IconCard = ({ Icon, ...props }: IconCardProps) => (
   <StyledIconCard {...props}>
@@ -61,8 +62,6 @@ export const IconCard = ({ Icon, ...props }: IconCardProps) => (
 export const Widget = styled(Card)`
   height: 100px;
   margin: auto;
-  display: flex;
-  flex-wrap: wrap;
   justify-content: space-evenly;
 `;
 
@@ -76,33 +75,9 @@ export const MediumWidgetCard = styled(Widget)`
   padding: 16px;
 `;
 
-const StyledDeviceCard = styled(SmallWidgetCard)`
-  margin: auto;
-  flex-flow: column wrap;
+export const BigWidgetCard = styled(Widget)`
+  width: 100%;
+  padding: 16px;
 `;
-
-const StyledIcon = styled.img`
-  ${theme('theme', icon)};
-  width: 80px;
-`;
-
-interface DeviceCardProps {
-  name: string,
-  path?: string,
-  iconSrc: string,
-  value: React.ReactNode,
-  className?: string,
-}
-
-export const DeviceCard = ({ name, path, iconSrc, value, className }: DeviceCardProps) => {
-  const navigate = useNavigate();
-  return (
-    <StyledDeviceCard onClick={() => path && navigate(path)} className={className}>
-      <StyledIcon src={iconSrc} />
-      <h4 style={{ margin: 'auto', marginTop: '1em' }}>{name}:</h4>
-      <p style={{ margin: 'auto', marginBottom: '1em' }}>{value}</p>
-    </StyledDeviceCard>
-  );
-};
 
 export default Card;

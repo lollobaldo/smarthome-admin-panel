@@ -23,7 +23,7 @@ const TimeChart = ({ lines }: { lines: LineProps[] }) => {
     domain: timeScale.domain().map(date => date.valueOf()),
     scale: 'time',
     type: 'number',
-    ticks: timeScale.ticks(3).map(date => date.valueOf()),
+    ticks: timeScale.ticks(4).map(date => date.valueOf()),
     tickFormatter: timeScale.tickFormat(),
   };
 
