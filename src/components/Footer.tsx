@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import theme from 'styled-theming';
 
-import { mediaQuery, card, colors } from 'styles/theme';
+import { mediaQuery, card } from 'styles/theme';
 
 import { ReactComponent as HomeRegular } from 'res/icons/regular-home.svg';
 import { ReactComponent as HomeSolid } from 'res/icons/solid-home.svg';

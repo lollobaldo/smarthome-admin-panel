@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-import { useSpring, animated } from '@react-spring/web';
+import React from 'react';
 import styled from 'styled-components/macro';
-import theme from 'styled-theming';
 
 const Container = styled.div`
   position: absolute;
