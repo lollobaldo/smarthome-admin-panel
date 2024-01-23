@@ -20,7 +20,7 @@ type ModalProps = {
 
 const formatDay = (days: number) => {
   if (days === 1) return '1 day';
-  return `${days} days`;
+  return `${days} ${days > 1 ? 'days' : 'day'}`;
 };
 
 const LookbackDays = ({ selected, options, changeLookbackDays }: ModalProps) => (

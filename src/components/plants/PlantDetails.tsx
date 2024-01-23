@@ -84,7 +84,7 @@ const SensorsData = ({ id }: Id) => {
     { data: illuminance.data, stroke: '#ffac33' },
   ];
 
-  const lookbackDaysOptions = [2, 5, 30];
+  const lookbackDaysOptions = [1, 2, 5, 30];
 
   return (
     <SensorsDataContainer>
