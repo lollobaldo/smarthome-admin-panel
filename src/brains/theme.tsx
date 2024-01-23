@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, createContext } from 'react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components/macro';
 
 import { useMediaQuery } from 'brains/hooks';
-import { headerBackground } from 'styles/theme';
+import { notificationBar } from 'styles/theme';
 
 export type Theme = 'light' | 'dark';
 
@@ -27,7 +27,7 @@ export const ThemeProvider = ({ defaultTheme, children }: ThemeProviderProps) =>
   }, [userAgentTheme]);
 
   useEffect(() => {
-    document!.querySelector('meta[name=theme-color]')!.setAttribute('content', headerBackground[activeTheme]);
+    document!.querySelector('meta[name=theme-color]')!.setAttribute('content', notificationBar[activeTheme]);
   }, [activeTheme]);
 
   useEffect(() => {

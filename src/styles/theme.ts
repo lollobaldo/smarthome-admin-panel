@@ -25,6 +25,11 @@ export const headerBackground = {
   dark: '#333',
 };
 
+export const notificationBar = {
+  light: 'rgb(252 234 227)',
+  dark: 'rgb(39 30 26)',
+};
+
 export const palettes = {
   red: {
     primary: '#bf2600',
