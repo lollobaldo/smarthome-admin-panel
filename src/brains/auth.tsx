@@ -5,7 +5,7 @@ import { useLocalStorage } from 'brains/hooks';
 
 import pic_me from 'res/profiles/me.jpg';
 
-const AUTH_URL = '.netlify/functions/auth';
+const AUTH_URL = '/.netlify/functions/auth';
 
 const profilePics: { [username: string]: string } = {
   Lorenzo: pic_me,
