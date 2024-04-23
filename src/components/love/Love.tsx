@@ -1,5 +1,4 @@
 import React from 'react';
-import { Routes, Route, useParams } from 'react-router-dom';
 
 import useLove, { LoveLog } from 'brains/devices/useLove';
 import DeviceCard from 'components/bits/DeviceCard';
