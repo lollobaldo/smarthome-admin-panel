@@ -111,7 +111,7 @@ const PlantDetails = ({ id, ...plantDetails }: PlantState) => (
   <Container>
     <Details {...plantDetails} />
     <SensorsData id={id} />
-    <Fab title="" iconSrc={wateringIcon} />
+    {/* <Fab title="" iconSrc={wateringIcon} /> */}
   </Container>
 );
 
