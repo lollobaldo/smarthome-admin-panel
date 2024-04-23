@@ -7,6 +7,7 @@ import Monitoring from 'components/Monitoring';
 import Lights from 'components/Lights';
 import Leds from 'components/Leds';
 import Plants from 'components/plants/Plants';
+import Love from 'components/love/Love';
 
 const StyledContent = styled.div`
   grid-area: content;
@@ -23,6 +24,7 @@ const Content = () => (
       <Route path="/lights/*" element={<Lights />} />
       <Route path="/leds/*" element={<Leds />} />
       <Route path="/plants/*" element={<Plants />} />
+      <Route path="/love/*" element={<Love />} />
     </Routes>
   </StyledContent>
 );
