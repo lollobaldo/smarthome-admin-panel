@@ -10,12 +10,12 @@ import { Card } from 'components/bits/Card';
 import { PlainStats } from 'components/bits/StatsCard';
 import { NoData } from 'components/bits/Errors';
 import LookbackDays from 'components/bits/LookbackDays';
-import Fab from 'components/bits/Fab';
+// import Fab from 'components/bits/Fab';
 
 import thermometerIcon from 'res/icons/thermometer.svg';
 import humidityIcon from 'res/icons/hygrometer.svg';
 import sunIcon from 'res/icons/sun.svg';
-import wateringIcon from 'res/icons/watering-can.svg';
+// import wateringIcon from 'res/icons/watering-can.svg';
 
 const StyledDetailCard = styled(Card)`
   height: max(10%, 140px);
