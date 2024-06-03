@@ -7,6 +7,8 @@ import { useTheme } from 'brains/theme';
 import { mediaQuery, card } from 'styles/theme';
 import { elevation1 } from 'styles/elevation';
 
+import user_icon from 'res/icons/solid-user.svg';
+
 const StyledHeader = styled.header`
   grid-area: header;
   ${elevation1};
@@ -72,7 +74,6 @@ const HelloMsg = ({ username }: { username?: string }) => (
 const Header = () => {
   // const { pathname } = useLocation();
   const { username, picture } = useAuth().auth.user;
-  console.log(username, picture);
   const { toggleTheme } = useTheme();
   return (
     <StyledHeader>
@@ -88,7 +89,7 @@ const Header = () => {
       <HelloMsg username={username} />
       {/* <Logo src={logo} alt="App Logo" /> */}
       <NightModeButton onClick={toggleTheme}>
-        <ProfilePic src={picture} alt={`${username}s picture`} />
+        <ProfilePic src={picture || user_icon} alt={`${username}s picture`} />
       </NightModeButton>
       </StyledHeader>
   );
