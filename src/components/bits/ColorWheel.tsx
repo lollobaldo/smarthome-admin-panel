@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable react/jsx-no-duplicate-props */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { animated } from '@react-spring/web';
 import tinycolor from 'tinycolor2';
 
@@ -56,6 +56,7 @@ const ColorWheel = ({ color: selectedColor, rainbowColors = defaultColors,
   const RRR = rrr + outerCircleSize;
 
   const [color, setColor] = useState(selectedColor);
+  useEffect(() => setColor(selectedColor), [selectedColor]);
 
   const changeColor = (newColor: string) => {
     // @ts-ignore
