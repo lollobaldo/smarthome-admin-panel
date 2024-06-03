@@ -143,6 +143,7 @@ export const useThrottle = <T>(value: T, ms: number = 200) => {
 
 export const useThrottledSetter = <T>(initialValue: T, setter: (value: T) => void, ms: number = 200): [T, (v: T) => void] => {
   const [value, setValueUnder] = useState<T>(initialValue);
+  useEffect(() => setValueUnder(initialValue), [initialValue]);
   const timeout = useRef<ReturnType<typeof setTimeout>>();
   const nextValue = useRef(null) as any;
   const hasNextValue = useRef(0) as any;

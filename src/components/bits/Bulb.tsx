@@ -52,6 +52,7 @@ const LitBulb = styled(BulbCap)`
 
 interface BulbProps {
   onClick?: () => void,
+  state: boolean,
   color?: string,
   brightness: number,
   className?: string,
@@ -62,11 +63,11 @@ interface BulbProps {
 // eeffff > brightness(0) saturate(100%) invert(84%) sepia(34%) saturate(164%) hue-rotate(176deg) brightness(111%) contrast(105%);
 // eslint-disable-next-line max-len
 // ffdd44 > brightness(0) saturate(100%) invert(95%) sepia(56%) saturate(1109%) hue-rotate(314deg) brightness(108%) contrast(106%);
-const Bulb = ({ onClick, color, brightness = 255, className, style }: BulbProps) => (
+const Bulb = ({ onClick, state, color, brightness = 255, className, style }: BulbProps) => (
   <Container onClick={onClick} className={className} style={style}>
     <img src={bulb} alt="" />
     <img src={bulbCap} alt="" />
-    <LitBulb color={`${color ? color + brightness.toString(16) : 'transparent'}`} title="" />
+    <LitBulb color={`${state ? color + brightness.toString(16) : 'transparent'}`} title="" />
   </Container>
 );
 

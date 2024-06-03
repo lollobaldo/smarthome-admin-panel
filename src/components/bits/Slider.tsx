@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 
 const StyledInput = styled.input<any>`
@@ -48,13 +48,15 @@ type SliderProps = Omit<React.ComponentProps<'input'>, 'value' | 'onChange' | 'm
 const Slider = ({ value, onChange, min = 0, max = 100, style, ...props }: SliderProps) => {
   const sign = min <= max ? 1 : -1;
   const scale = (normalised: number) => {
-    return sign * normalised * (max - min) + min;
+    return Math.round(sign * normalised * (max - min) + min);
   };
   const scaleInv = (scaled: number) => {
     return sign * scaled / (max - min);
   };
   
   const [v, setV] = useState(scaleInv(value));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => setV(scaleInv(value)), [value]);
   
   const onChangeCallback = (newValue: number): void => {
     setV(newValue);

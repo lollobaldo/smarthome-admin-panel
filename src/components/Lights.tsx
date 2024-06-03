@@ -54,7 +54,7 @@ const AnimatedBulb = styled(Bulb)`
   grid-area: bulb;
   transition: all 1s;
   /* position: absolute; */
-  left: ${({ color }) => (color ? '0' : '50%')};
+  left: ${({ state }) => (state ? '0' : '50%')};
   transform: translateX(-60%);
   margin: auto;
   width: 80%;
@@ -187,14 +187,16 @@ const value2color = (gradient: string[], value: number, min = 0, max = 255) => {
 const Lights = () => {
   const { state, setBrightness: sB, setTemperature: sT, toggleLight } = useLights();
   
-  const [brightness, setBrightness] = useThrottledSetter(state.brightness, sB, 500);
-  const [temperature, setTemperature] = useThrottledSetter(state.temperature, sT, 500);
-  
+  const [brightness, setBrightness] = useThrottledSetter(state.brightness, sB, 300);
+  const [temperature, setTemperature] = useThrottledSetter(state.temperature, sT, 300);
+
+  console.log(state, brightness);
+
   const color = value2color(temperatureGradient, state.temperature);
   return (
     <Container>
       {/* <Header /> */}
-      <AnimatedBulb onClick={toggleLight} color={color} brightness={brightness} />
+      <AnimatedBulb onClick={toggleLight} state={state.state} color={color} brightness={brightness} />
       <BrightnessSlider state={state.state} value={brightness} onChange={setBrightness}
         gradient={brightnessGradient} value2color={value2color.bind(null, brightnessGradient)}
         min={0} max={255} thumbColor="transparent" progressColor="white" trackColor="#777" />
